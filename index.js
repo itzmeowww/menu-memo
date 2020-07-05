@@ -9,13 +9,14 @@ const secret = process.env.secret;
 const access_token = process.env.access_token;
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => res.send("Working. . ."));
+app.get("/", (req, res) => {
+  res.send("Working. . .");
+  console.log("App started");
+});
 
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );
-
-app.get("/webhook", (req, res) => res.send("waiting"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
