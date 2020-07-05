@@ -15,7 +15,7 @@ app.listen(PORT, () =>
 
 app.post("/webhook", (req, res) => res.sendStatus(200));
 
-app.get("/webhook", (req, res) => res.send("Working. . ." + secret));
+app.get("/webhook", (req, res) => res.send("Working. . ."));
 function reply(reply_token) {
   let headers = {
     "Content-Type": "application/json",
