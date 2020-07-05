@@ -1,23 +1,12 @@
+// Echo reply
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
-require("dotenv").config();
-
 const app = express();
+const port = process.env.PORT || 5000;
 const channel_id = process.env.channel_id;
 const secret = process.env.secret;
 const access_token = process.env.access_token;
-const PORT = process.env.PORT || 5000;
-
-app.get("/", (req, res) => {
-  res.send("Working. . .");
-  console.log("App started");
-});
-
-app.listen(PORT, () =>
-  console.log(`Example app listening at http://localhost:${PORT}`)
-);
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post("/webhook", (req, res) => {
@@ -26,8 +15,8 @@ app.post("/webhook", (req, res) => {
   reply(reply_token, msg);
   res.sendStatus(200);
 });
-
-function reply(reply_token) {
+app.listen(port);
+function reply(reply_token, msg) {
   let headers = {
     "Content-Type": "application/json",
     Authorization: "Bearer {" + access_token + "}",
@@ -37,11 +26,7 @@ function reply(reply_token) {
     messages: [
       {
         type: "text",
-        text: "Hello",
-      },
-      {
-        type: "text",
-        text: "How are you?",
+        text: msg,
       },
     ],
   });
