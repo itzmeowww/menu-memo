@@ -15,7 +15,7 @@ app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );
 
-app.post("/webhook", (req, res) => res.sendStatus(200));
+app.get("/webhook", (req, res) => res.send("waiting"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
