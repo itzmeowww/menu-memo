@@ -5,10 +5,7 @@ const winston = require("winston");
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.simple(),
-  transports: [
-    new winston.transports.File({ filename: "log.log" }),
-    new winston.transports.Console(),
-  ],
+  transports: [new winston.transports.Console()],
 });
 
 const express = require("express");
@@ -106,6 +103,7 @@ function gsrun(cl) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post("/webhook", (req, res) => {
+  logger.info("Webhook");
   let reply_token = req.body.events[0].replyToken;
   let msg = req.body.events[0].message.text;
   let replymsg = "";
@@ -119,7 +117,7 @@ app.post("/webhook", (req, res) => {
       now.getFullYear();
     logger.info(msg);
     logger.info(date);
-    logger.info(db);
+
     if (date in db) {
       let menu = db[date];
 
@@ -140,7 +138,8 @@ app.post("/webhook", (req, res) => {
       });
       replymsg = "Breakfast\n" + breakfast;
       replymsg += "Lunch\n" + lunch;
-      replymsg = "Dinner\n" + dinner;
+      replymsg += "Dinner\n" + dinner;
+      logger.info(replymsg);
     } else {
       replymsg = "Try again later~";
     }
