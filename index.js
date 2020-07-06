@@ -38,7 +38,10 @@ const keys = {
 const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
   "https://www.googleapis.com/auth/spreadsheets.readonly",
 ]);
+
 client.authorize(async (err, res) => {
+  logger.info(err);
+  logger.info(res);
   if (err) {
     console.log(err);
     logger.error(err);
