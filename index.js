@@ -38,7 +38,7 @@ const keys = {
 const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
   "https://www.googleapis.com/auth/spreadsheets.readonly",
 ]);
-
+// Google sheet Auth
 client.authorize(async (err, res) => {
   logger.info(err);
   logger.info(res);
@@ -53,7 +53,7 @@ client.authorize(async (err, res) => {
     });
   }
 });
-
+//Fetch menu from Google sheet
 function gsrun(cl) {
   const gsapi = google.sheets({
     version: "v4",
@@ -105,11 +105,10 @@ function gsrun(cl) {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 app.post("/webhook", (req, res) => {
-  logger.info("Webhook");
   let reply_token = req.body.events[0].replyToken;
   let msg = req.body.events[0].message.text;
-  let replymsg = "";
 
   let now = new Date();
   let date =
@@ -118,67 +117,70 @@ app.post("/webhook", (req, res) => {
     now.getDate() +
     "/" +
     now.getFullYear();
-  logger.info(msg);
-  logger.info(date);
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let replymsg =
+    now.getDate() +
+    " " +
+    months[now.getMonth()] +
+    " " +
+    now.getFullYear() +
+    "\n";
+  logger.info("MESSAGE : " + msg);
 
-  if (
-    msg.toLowerCase().includes("food") ||
-    msg.includes("อาหาร") ||
-    msg.toLowerCase().includes("menu") ||
-    msg.includes("เมนู")
-  ) {
-    if (date in db) {
-      let menu = db[date];
+  if (date in db) {
+    let menu = db[date];
 
-      let breakfast = "";
-      menu.Breakfast.forEach((x) => {
-        breakfast += x;
-        breakfast += "\n";
-      });
-      let lunch = "";
-      menu.Lunch.forEach((x) => {
-        lunch += x;
-        lunch += "\n";
-      });
-      let dinner = "";
-      menu.Dinner.forEach((x) => {
-        dinner += x;
-        dinner += "\n";
-      });
-      replymsg = "Breakfast\n" + breakfast + "\n";
+    let breakfast = "";
+    menu.Breakfast.forEach((x) => {
+      breakfast += x;
+      breakfast += "\n";
+    });
+    let lunch = "";
+    menu.Lunch.forEach((x) => {
+      lunch += x;
+      lunch += "\n";
+    });
+    let dinner = "";
+    menu.Dinner.forEach((x) => {
+      dinner += x;
+      dinner += "\n";
+    });
+
+    if (
+      msg.toLowerCase().includes("food") ||
+      msg.includes("อาหาร") ||
+      msg.toLowerCase().includes("menu") ||
+      msg.includes("เมนู")
+    ) {
+      replymsg += "Breakfast\n" + breakfast + "\n";
       replymsg += "Lunch\n" + lunch + "\n";
       replymsg += "Dinner\n" + dinner;
-      logger.info(replymsg);
     } else if (msg.toLowerCase().includes("breakfast")) {
-      let breakfast = "";
-      menu.Breakfast.forEach((x) => {
-        breakfast += x;
-        breakfast += "\n";
-      });
-      replymsg = "Breakfast\n" + breakfast;
-      logger.info(replymsg);
+      replymsg += "Breakfast\n" + breakfast;
     } else if (msg.toLowerCase().includes("lunch")) {
-      let lunch = "";
-      menu.Lunch.forEach((x) => {
-        lunch += x;
-        lunch += "\n";
-      });
-      replymsg = "Lunch\n" + lunch;
-      logger.info(replymsg);
-    } else if (msg.toLowerCase().includes("dinner")) {
-      let dinner = "";
-      menu.Dinner.forEach((x) => {
-        dinner += x;
-        dinner += "\n";
-      });
-      replymsg = "Dinner\n" + dinner;
-      logger.info(replymsg);
-    } else {
-      replymsg = "Try again later~";
+      replymsg += "Lunch\n" + lunch;
+    } else if (msg.toLowerCase().includes("lunch")) {
+      replymsg += "Dinner\n" + dinner;
     }
-
-    reply(reply_token, replymsg);
+  } else {
+    replymsg = "Try again later~";
   }
+
+  reply(reply_token, replymsg);
+
   res.sendStatus(200);
 });
 app.listen(port);
