@@ -1,4 +1,16 @@
 // Echo reply
+
+const winston = require("winston");
+
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.simple(),
+  transports: [
+    new winston.transports.File({ filename: "log.log" }),
+    new winston.transports.Console(),
+  ],
+});
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
@@ -32,8 +44,10 @@ const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
 client.authorize(async (err, res) => {
   if (err) {
     console.log(err);
+    logger.error(err);
   } else {
     console.log("Succeed!");
+    logger.info("Auth");
     gsrun(client).then(() => {
       console.log("end");
     });
@@ -103,7 +117,9 @@ app.post("/webhook", (req, res) => {
       now.getDate() +
       "/" +
       now.getFullYear();
-
+    logger.info(msg);
+    logger.info(date);
+    logger.info(db);
     if (date in db) {
       let menu = db[date];
 
