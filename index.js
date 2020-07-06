@@ -122,9 +122,9 @@ app.post("/webhook", (req, res) => {
   logger.info(date);
 
   if (
-    msg.toLower().includes("food") ||
+    msg.toLowerCase().includes("food") ||
     msg.includes("อาหาร") ||
-    msg.includes("menu") ||
+    msg.toLowerCase().includes("menu") ||
     msg.includes("เมนู")
   ) {
     if (date in db) {
@@ -149,7 +149,7 @@ app.post("/webhook", (req, res) => {
       replymsg += "Lunch\n" + lunch + "\n";
       replymsg += "Dinner\n" + dinner;
       logger.info(replymsg);
-    } else if (msg.toLower().includes("breakfast")) {
+    } else if (msg.toLowerCase().includes("breakfast")) {
       let breakfast = "";
       menu.Breakfast.forEach((x) => {
         breakfast += x;
@@ -157,7 +157,7 @@ app.post("/webhook", (req, res) => {
       });
       replymsg = "Breakfast\n" + breakfast;
       logger.info(replymsg);
-    } else if (msg.toLower().includes("lunch")) {
+    } else if (msg.toLowerCase().includes("lunch")) {
       let lunch = "";
       menu.Lunch.forEach((x) => {
         lunch += x;
@@ -165,7 +165,7 @@ app.post("/webhook", (req, res) => {
       });
       replymsg = "Lunch\n" + lunch;
       logger.info(replymsg);
-    } else if (msg.toLower().includes("dinner")) {
+    } else if (msg.toLowerCase().includes("dinner")) {
       let dinner = "";
       menu.Dinner.forEach((x) => {
         dinner += x;
