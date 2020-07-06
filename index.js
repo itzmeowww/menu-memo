@@ -137,7 +137,7 @@ app.post("/webhook", (req, res) => {
     months[now.getMonth()] +
     " " +
     now.getFullYear() +
-    "\n";
+    "\n\n";
   logger.info("MESSAGE : " + msg);
 
   if (date in db) {
