@@ -98,7 +98,11 @@ app.post("/webhook", (req, res) => {
   if (msg.includes("food") || msg.includes("อาหาร")) {
     let now = new Date();
     let date =
-      now.getMonth() + 1 + "/" + now.getDate() + "/" + now.getFullYear();
+      (now.getMonth() + 1).toString() +
+      "/" +
+      now.getDate() +
+      "/" +
+      now.getFullYear();
 
     if (date in db) {
       let menu = db[date];
