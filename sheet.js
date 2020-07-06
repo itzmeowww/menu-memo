@@ -1,16 +1,5 @@
-// Echo reply
-const express = require("express");
-const bodyParser = require("body-parser");
-const request = require("request");
 const { google } = require("googleapis");
 require("dotenv").config();
-// const { init } = require("./sheet");
-const app = express();
-const port = process.env.PORT || 5000;
-const channel_id = process.env.channel_id;
-const secret = process.env.secret;
-const access_token = process.env.access_token;
-
 let db = {};
 const keys = {
   type: "service_account",
@@ -29,16 +18,19 @@ const keys = {
 const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
   "https://www.googleapis.com/auth/spreadsheets.readonly",
 ]);
-client.authorize(async (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Succeed!");
-    gsrun(client).then(() => {
-      console.log("end");
-    });
-  }
-});
+
+async function init() {
+  client.authorize(async (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Succeed!");
+      gsrun(client).then(() => {
+        console.log("end");
+      });
+    }
+  });
+}
 
 function gsrun(cl) {
   const gsapi = google.sheets({
@@ -88,71 +80,4 @@ function gsrun(cl) {
       }
     });
 }
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.post("/webhook", (req, res) => {
-  let reply_token = req.body.events[0].replyToken;
-  let msg = req.body.events[0].message.text;
-  let replymsg = "";
-  if (msg.includes("food") || msg.includes("อาหาร")) {
-    let now = new Date();
-    let date =
-      now.getMonth() + 1 + "/" + now.getDate() + "/" + now.getFullYear();
-
-    if (date in db) {
-      let menu = db[date];
-
-      let breakfast = "";
-      menu.Breakfast.forEach((x) => {
-        breakfast += x;
-        breakfast += "\n";
-      });
-      let lunch = "";
-      menu.Lunch.forEach((x) => {
-        lunch += x;
-        lunch += "\n";
-      });
-      let dinner = "";
-      menu.Dinner.forEach((x) => {
-        dinner += x;
-        dinner += "\n";
-      });
-      replymsg = "Breakfast\n" + breakfast;
-      replymsg += "Lunch\n" + lunch;
-      replymsg = "Dinner\n" + dinner;
-    } else {
-      replymsg = "Try again later~";
-    }
-
-    reply(reply_token, replymsg);
-  }
-  res.sendStatus(200);
-});
-app.listen(port);
-
-function reply(reply_token, msg) {
-  let headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer {" + access_token + "}",
-  };
-  let body = JSON.stringify({
-    replyToken: reply_token,
-    messages: [
-      {
-        type: "text",
-        text: msg,
-      },
-    ],
-  });
-  request.post(
-    {
-      url: "https://api.line.me/v2/bot/message/reply",
-      headers: headers,
-      body: body,
-    },
-    (err, res, body) => {
-      console.log("status = " + res.statusCode);
-    }
-  );
-}
+init();
