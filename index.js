@@ -110,17 +110,18 @@ app.post("/webhook", (req, res) => {
   let reply_token = req.body.events[0].replyToken;
   let msg = req.body.events[0].message.text;
   let replymsg = "";
-  if (msg.includes("food") || msg.includes("อาหาร")) {
-    let now = new Date();
-    let date =
-      (now.getMonth() + 1).toString() +
-      "/" +
-      now.getDate() +
-      "/" +
-      now.getFullYear();
-    logger.info(msg);
-    logger.info(date);
 
+  let now = new Date();
+  let date =
+    (now.getMonth() + 1).toString() +
+    "/" +
+    now.getDate() +
+    "/" +
+    now.getFullYear();
+  logger.info(msg);
+  logger.info(date);
+
+  if (msg.toLower().includes("food") || msg.includes("อาหาร")) {
     if (date in db) {
       let menu = db[date];
 
@@ -139,9 +140,33 @@ app.post("/webhook", (req, res) => {
         dinner += x;
         dinner += "\n";
       });
-      replymsg = "Breakfast\n" + breakfast;
-      replymsg += "Lunch\n" + lunch;
+      replymsg = "Breakfast\n" + breakfast + "\n";
+      replymsg += "Lunch\n" + lunch + "\n";
       replymsg += "Dinner\n" + dinner;
+      logger.info(replymsg);
+    } else if (msg.toLower().includes("breakfast")) {
+      let breakfast = "";
+      menu.Breakfast.forEach((x) => {
+        breakfast += x;
+        breakfast += "\n";
+      });
+      replymsg = "Breakfast\n" + breakfast;
+      logger.info(replymsg);
+    } else if (msg.toLower().includes("lunch")) {
+      let lunch = "";
+      menu.Lunch.forEach((x) => {
+        lunch += x;
+        lunch += "\n";
+      });
+      replymsg = "Lunch\n" + lunch;
+      logger.info(replymsg);
+    } else if (msg.toLower().includes("dinner")) {
+      let dinner = "";
+      menu.Dinner.forEach((x) => {
+        dinner += x;
+        dinner += "\n";
+      });
+      replymsg = "Dinner\n" + dinner;
       logger.info(replymsg);
     } else {
       replymsg = "Try again later~";
