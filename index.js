@@ -121,7 +121,12 @@ app.post("/webhook", (req, res) => {
   logger.info(msg);
   logger.info(date);
 
-  if (msg.toLower().includes("food") || msg.includes("อาหาร")) {
+  if (
+    msg.toLower().includes("food") ||
+    msg.includes("อาหาร") ||
+    msg.includes("menu") ||
+    msg.includes("เมนู")
+  ) {
     if (date in db) {
       let menu = db[date];
 
