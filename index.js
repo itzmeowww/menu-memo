@@ -127,6 +127,7 @@ app.get("/", (req, res) => {
     time: moment().format("l"),
     time2: moment().format("LL"),
     time3: moment().format("LLL"),
+    time4: moment().local().format("LLL"),
   });
 });
 app.post("/webhook", (req, res) => {
@@ -138,6 +139,7 @@ app.post("/webhook", (req, res) => {
   logger.info(moment().format("l"));
   logger.info(moment().format("LL"));
   logger.info(moment().format("LLL"));
+  logger.info(moment().local().format("LLL"));
   let date = moment().format("l");
 
   let replymsg = moment().format("LL") + "\n\n";
