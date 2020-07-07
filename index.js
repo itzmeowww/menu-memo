@@ -172,7 +172,7 @@ app.post("/webhook", (req, res) => {
       replymsg += "Breakfast\n" + breakfast;
     } else if (msg.toLowerCase().includes("lunch")) {
       replymsg += "Lunch\n" + lunch;
-    } else if (msg.toLowerCase().includes("lunch")) {
+    } else if (msg.toLowerCase().includes("dinner")) {
       replymsg += "Dinner\n" + dinner;
     }
   } else {
