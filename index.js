@@ -1,7 +1,8 @@
 // Echo reply
 
 const winston = require("winston");
-
+var moment = require("moment"); // require
+moment.locale("th");
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.simple(),
@@ -12,6 +13,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const { google } = require("googleapis");
+
 require("dotenv").config();
 // const { init } = require("./sheet");
 const app = express();
@@ -105,12 +107,16 @@ function gsrun(cl) {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.get("/", (req, res) => {
+  res.send({ time: moment().format("M/D/YYYY") });
+});
 app.post("/webhook", (req, res) => {
   let reply_token = req.body.events[0].replyToken;
   let msg = req.body.events[0].message.text;
 
   let now = new Date();
+  logger.info(now);
+  logger.info(moment().format("M/D/YYYY"));
   let date =
     (now.getMonth() + 1).toString() +
     "/" +
