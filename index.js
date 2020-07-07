@@ -163,7 +163,9 @@ app.post("/webhook", (req, res) => {
       msg.toLowerCase().includes("food") ||
       msg.includes("อาหาร") ||
       msg.toLowerCase().includes("menu") ||
-      msg.includes("เมนู")
+      msg.includes("เมนู") ||
+      msg.toLowerCase().includes("hungry") ||
+      msg.includes("หิว")
     ) {
       replymsg += "Breakfast\n" + breakfast + "\n";
       replymsg += "Lunch\n" + lunch + "\n";
