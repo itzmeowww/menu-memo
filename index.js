@@ -142,12 +142,12 @@ app.post("/webhook", (req, res) => {
   let date = moment().add(7, "hours").format("M/D/YYYY");
   logger.info("date : " + date);
 
-  let replymsg = moment().add(7, "hours").format("LL") + "\n\n";
+  let replymsg = "";
   logger.info("MESSAGE : " + msg);
 
   if (date in db) {
     let menu = db[date];
-
+    replymsg += moment().add(7, "hours").format("LL") + "\n\n";
     let breakfast = "";
     menu.Breakfast.forEach((x) => {
       breakfast += x;
@@ -181,6 +181,8 @@ app.post("/webhook", (req, res) => {
       replymsg += "Lunch\n" + lunch;
     } else if (msg.toLowerCase().includes("dinner")) {
       replymsg += "Dinner\n" + dinner;
+    } else {
+      replymsg = "🙄";
     }
   } else {
     replymsg = "Try again later~";
