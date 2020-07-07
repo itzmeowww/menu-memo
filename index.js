@@ -123,12 +123,7 @@ function gsrun(cl) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
-  res.send({
-    time: moment().format("l"),
-    time2: moment().format("LL"),
-    time3: moment().format("LLL"),
-    time4: moment().local().format("LLL"),
-  });
+  res.send({});
 });
 app.post("/webhook", (req, res) => {
   let reply_token = req.body.events[0].replyToken;
@@ -136,10 +131,10 @@ app.post("/webhook", (req, res) => {
 
   let now = new Date();
   logger.info(now);
-  logger.info(moment().format("l"));
-  logger.info(moment().format("LL"));
-  logger.info(moment().format("LLL"));
-  logger.info(moment().local().format("LLL"));
+  logger.info(moment().add(7, "hours").format("l"));
+  logger.info(moment().add(7, "hours").format("LL"));
+  logger.info(moment().add(7, "hours").format("LLL"));
+  logger.info(moment().add(7, "hours").local().format("LLL"));
   let date = moment().format("l");
 
   let replymsg = moment().format("LL") + "\n\n";
