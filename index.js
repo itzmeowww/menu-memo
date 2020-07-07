@@ -3,6 +3,22 @@
 const winston = require("winston");
 var moment = require("moment"); // require
 moment.locale("th");
+moment.updateLocale("th", {
+  months: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ],
+});
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.simple(),
@@ -108,7 +124,7 @@ function gsrun(cl) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
-  res.send({ time: moment().format("M/D/YYYY") });
+  res.send({ time: moment().format("l"), time2: moment().format("LL") });
 });
 app.post("/webhook", (req, res) => {
   let reply_token = req.body.events[0].replyToken;
@@ -116,34 +132,11 @@ app.post("/webhook", (req, res) => {
 
   let now = new Date();
   logger.info(now);
-  logger.info(moment().format("M/D/YYYY"));
-  let date =
-    (now.getMonth() + 1).toString() +
-    "/" +
-    now.getDate() +
-    "/" +
-    now.getFullYear();
-  let months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  let replymsg =
-    now.getDate() +
-    " " +
-    months[now.getMonth()] +
-    " " +
-    now.getFullYear() +
-    "\n\n";
+  logger.info(moment().format("l"));
+  logger.info(moment().format("LL"));
+  let date = moment().format("l");
+
+  let replymsg = moment().format("LL") + "\n\n";
   logger.info("MESSAGE : " + msg);
 
   if (date in db) {
