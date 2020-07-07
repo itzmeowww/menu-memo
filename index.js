@@ -135,9 +135,9 @@ app.post("/webhook", (req, res) => {
   logger.info(moment().add(7, "hours").format("LL"));
   logger.info(moment().add(7, "hours").format("LLL"));
   logger.info(moment().add(7, "hours").local().format("LLL"));
-  let date = moment().format("l");
+  let date = moment().add(7, "hours").format("l");
 
-  let replymsg = moment().format("LL") + "\n\n";
+  let replymsg = moment().add(7, "hours").format("LL") + "\n\n";
   logger.info("MESSAGE : " + msg);
 
   if (date in db) {
