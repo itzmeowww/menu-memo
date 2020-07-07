@@ -134,7 +134,7 @@ app.post("/webhook", (req, res) => {
   logger.info(now);
   logger.info(moment().format("l"));
   logger.info(moment().format("LL"));
-  logger.info(moment.format("LLL"));
+  logger.info(moment().format("LLL"));
   let date = moment().format("l");
 
   let replymsg = moment().format("LL") + "\n\n";
