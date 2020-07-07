@@ -125,6 +125,10 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send({});
 });
+//TODO help : show commands
+//TODO time : if the meal end show next meal
+//TODO tmr : tomorrow's meal
+
 app.post("/webhook", (req, res) => {
   let reply_token = req.body.events[0].replyToken;
   let msg = req.body.events[0].message.text;
@@ -135,7 +139,8 @@ app.post("/webhook", (req, res) => {
   logger.info(moment().add(7, "hours").format("LL"));
   logger.info(moment().add(7, "hours").format("LLL"));
   logger.info(moment().add(7, "hours").local().format("LLL"));
-  let date = moment().add(7, "hours").format("l");
+  let date = moment().add(7, "hours").format("M/D/YYYY");
+  logger.info("date : " + date);
 
   let replymsg = moment().add(7, "hours").format("LL") + "\n\n";
   logger.info("MESSAGE : " + msg);
