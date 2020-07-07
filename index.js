@@ -3,6 +3,7 @@
 const winston = require("winston");
 var moment = require("moment"); // require
 moment.locale("th");
+
 moment.updateLocale("th", {
   months: [
     "January",
@@ -24,7 +25,7 @@ const logger = winston.createLogger({
   format: winston.format.simple(),
   transports: [new winston.transports.Console()],
 });
-
+logger.info(moment.locale());
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
@@ -66,9 +67,7 @@ client.authorize(async (err, res) => {
   } else {
     console.log("Succeed!");
     logger.info("Auth");
-    gsrun(client).then(() => {
-      console.log("end");
-    });
+    gsrun(client).then(() => {});
   }
 });
 //Fetch menu from Google sheet
@@ -124,7 +123,11 @@ function gsrun(cl) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
-  res.send({ time: moment().format("l"), time2: moment().format("LL") });
+  res.send({
+    time: moment().format("l"),
+    time2: moment().format("LL"),
+    time3: moment().format("LLL"),
+  });
 });
 app.post("/webhook", (req, res) => {
   let reply_token = req.body.events[0].replyToken;
