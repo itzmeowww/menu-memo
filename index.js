@@ -126,53 +126,14 @@ app.post("/webhook", line.middleware(config), (req, res) => {
     });
 });
 
-// function replyText(msg) {
-//   let now = moment().add(7, "hours");
-//   let date = now.format("M/D/YYYY");
-//   if (date in db) {
-//     let menu = db[date];
-//     replymsg += now.format("LL") + "\n\n";
-//     let breakfast = "";
-//     menu.Breakfast.forEach((x) => {
-//       breakfast += x;
-//       breakfast += "\n";
-//     });
-//     let lunch = "";
-//     menu.Lunch.forEach((x) => {
-//       lunch += x;
-//       lunch += "\n";
-//     });
-//     let dinner = "";
-//     menu.Dinner.forEach((x) => {
-//       dinner += x;
-//       dinner += "\n";
-//     });
-
-//     if (
-//       msg.toLowerCase().includes("food") ||
-//       msg.includes("อาหาร") ||
-//       msg.toLowerCase().includes("menu") ||
-//       msg.includes("เมนู") ||
-//       msg.toLowerCase().includes("hungry") ||
-//       msg.includes("หิว")
-//     ) {
-//       replymsg += "Breakfast\n" + breakfast + "\n";
-//       replymsg += "Lunch\n" + lunch + "\n";
-//       replymsg += "Dinner\n" + dinner;
-//     } else if (msg.toLowerCase().includes("breakfast")) {
-//       replymsg += "Breakfast\n" + breakfast;
-//     } else if (msg.toLowerCase().includes("lunch")) {
-//       replymsg += "Lunch\n" + lunch;
-//     } else if (msg.toLowerCase().includes("dinner")) {
-//       replymsg += "Dinner\n" + dinner;
-//     } else {
-//       replymsg = "🙄";
-//     }
-//   } else {
-//     replymsg = "Try again later~";
-//   }
-//   return replymsg;
-// }
+function isInStr(msg, msgList) {
+  msgList.forEach((x) => {
+    if (msg.toLowerCase().includes(msg)) {
+      return true;
+    }
+  });
+  return false;
+}
 
 function flexHeader(txt) {
   let ret = {
@@ -212,7 +173,6 @@ function flexMenu(menu) {
     offsetTop: "5px",
   };
 }
-
 function flexSeparator() {
   let ret = {
     type: "separator",
@@ -248,7 +208,7 @@ function flexBody(meals) {
 function flexMessage(date, meals) {
   let ret = {
     type: "flex",
-    altText: "this is a flex message",
+    altText: "Menu Memo sent you a menu!",
     contents: {
       type: "bubble",
       header: flexHeader(date),
@@ -268,6 +228,31 @@ function textMessage(msg) {
 }
 function replyMessage(msg) {
   let now = moment().add(7, "hours");
+  let hours = moment().hour();
+
+  let cmd = {
+    menu: ["food", "menu", "เมนู", "อาหาร"],
+    breakfast: ["breakfast", "bf", "morning", "เช้า"],
+    lunch: ["lunch", "midday", "เที่ยง"],
+    dinner: ["dinner", "เย็น"],
+    nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
+    help: ["help", "cmd", "ช่วย"],
+  };
+  if (isInStr(msg, cmd["nextMeal"])) {
+    if (hour > 19) {
+      msg = "breakfast";
+      now = now.add(1, "days");
+    } else if (hour > 13) {
+      msg = "dinner";
+      now = now.add(1, "days");
+    } else if (hour > 8) {
+      msg = "lunch";
+      now = now.add(1, "days");
+    } else {
+      msg = "breakfast";
+      now = now.add(1, "days");
+    }
+  }
   let date = now.format("M/D/YYYY");
   let date2 = now.format("D MMM YYYY");
   let meals = {};
@@ -278,23 +263,18 @@ function replyMessage(msg) {
   let dinner = [...menu.Dinner];
 
   if (date in db) {
-    if (
-      msg.toLowerCase().includes("food") ||
-      msg.includes("อาหาร") ||
-      msg.toLowerCase().includes("menu") ||
-      msg.includes("เมนู") ||
-      msg.toLowerCase().includes("hungry") ||
-      msg.includes("หิว")
-    ) {
+    if (isInStr(msg, cmd["menu"])) {
       meals["breakfast"] = breakfast;
       meals["lunch"] = lunch;
       meals["dinner"] = dinner;
-    } else if (msg.toLowerCase().includes("breakfast")) {
+    } else if (isInStr(msg, cmd["breakfast"])) {
       meals["breakfast"] = breakfast;
-    } else if (msg.toLowerCase().includes("lunch")) {
+    } else if (isInStr(msg, cmd["lunch"])) {
       meals["lunch"] = lunch;
-    } else if (msg.toLowerCase().includes("dinner")) {
+    } else if (isInStr(msg, cmd["dinner"])) {
       meals["dinner"] = dinner;
+    } else if (isInStr(msg, cmd["help"])) {
+      return textMessage("help : help");
     } else {
       return textMessage("🙄");
     }
