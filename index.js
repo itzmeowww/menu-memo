@@ -21,7 +21,7 @@ require("dotenv").config();
 
 const { gsrun, client } = require("./sheet");
 
-const { flexMessage, textMessage } = require("./style");
+const { flexMessage, textMessage, flexHelp } = require("./style");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -46,11 +46,11 @@ client.authorize(async (err, res) => {
   }
 });
 
-console.log("Database test", db["7/31/2020"]);
 // ! ISSUE : db is not valid at this point, but should be
 
 //TODO help : show commands
 //TODO time : if the meal end show next meal
+//TODO date :
 //TODO tmr : tomorrow's meal
 
 function isInStr(msg, msgList) {
@@ -67,7 +67,7 @@ function isInStr(msg, msgList) {
 function replyMessage(msg) {
   let now = moment().add(7, "hours");
   let hours = now.hour();
-
+  let dateOpt = "";
   let cmd = {
     menu: ["food", "menu", "เมนู", "อาหาร"],
     breakfast: ["breakfast", "bf", "morning", "เช้า"],
@@ -76,20 +76,42 @@ function replyMessage(msg) {
     nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
     help: ["help", "cmd", "ช่วย"],
   };
+  
+  let cmdList = ["food", "menu", "breakfast", "lunch", "dinner", "หิว", "???"];
   if (isInStr(msg, cmd["nextMeal"])) {
-    if (hours > 19) {
+    if (hours >= 19) {
       msg = "breakfast";
       now = now.add(1, "days");
-    } else if (hours > 13) {
+      dateOpt = " (Tomorrow)";
+    } else if (hours >= 13) {
       msg = "dinner";
-    } else if (hours > 8) {
+    } else if (hours >= 8) {
       msg = "lunch";
     } else {
       msg = "breakfast";
     }
   }
+
+  if(isInStr(msg, cmd["breakfast"]){
+    if(hours >= 9){
+      now = now.add(1, "days");
+      dateOpt = " (Tomorrow)";
+    }
+  }
+  else if(isInStr(msg, cmd["lunch"]){
+    if(hours >= 13){
+      now = now.add(1, "days");
+      dateOpt = " (Tomorrow)";
+    }
+  }else if(isInStr(msg, cmd["dinner"]){
+    if(hours >= 19){
+      now = now.add(1, "days");
+      dateOpt = " (Tomorrow)";
+    }
+  }
   let date = now.format("M/D/YYYY");
   let date2 = now.format("D MMM YYYY");
+  
   let menu = db[date];
   let meals = {};
 
@@ -111,11 +133,11 @@ function replyMessage(msg) {
     } else if (isInStr(msg, cmd["dinner"])) {
       meals["dinner"] = dinner;
     } else if (isInStr(msg, cmd["help"])) {
-      return textMessage("help : help");
+      return flexHelp(cmdList);
     } else {
       return textMessage("🙄");
     }
-    return flexMessage(date2, meals);
+    return flexMessage(date2 + dateOpt, meals);
   } else {
     return textMessage("Try again later~");
   }
@@ -157,7 +179,6 @@ app.post("/test", (req, res) => {
   res.status(200).end();
 });
 
-
 app.listen(port);
 
 // setTimeout(() => {
@@ -171,4 +192,3 @@ app.listen(port);
 //   };
 //   console.log(isInStr("หิว", cmd["nextMeal"]));
 // }, 4000);
-

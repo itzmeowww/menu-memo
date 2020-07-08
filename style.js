@@ -68,6 +68,17 @@ function flexBody(meals) {
   ret["contents"] = contents;
   return ret;
 }
+
+function flexHelpText(text) {
+  return {
+    type: "text",
+    text: text,
+    align: "center",
+    gravity: "center",
+    margin: "md",
+  };
+}
+
 function flexMessage(date, meals) {
   let ret = {
     type: "flex",
@@ -81,6 +92,31 @@ function flexMessage(date, meals) {
   };
 
   return ret;
+}
+function flexHelpBody(cmdList) {
+  let contents = [];
+  let ret = {
+    type: "box",
+    layout: "vertical",
+    backgroundColor: "#e5edff",
+  };
+  cmdList.forEach((x) => {
+    contents.push(flexHelpText(x));
+  });
+  ret["contents"] = contents;
+  return ret;
+}
+
+function flexHelp(cmdList) {
+  let ret = {
+    type: "flex",
+    altText: "Menu Memo sent you help!",
+    contents: {
+      type: "bubble",
+      header: flexHeader("Help"),
+      body: flexHelpBody(cmdList),
+    },
+  };
 }
 function textMessage(msg) {
   let ret = {
@@ -98,4 +134,6 @@ module.exports = {
   flexBody,
   flexMessage,
   textMessage,
+  flexHelpBody,
+  flexHelp,
 };
