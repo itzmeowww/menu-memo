@@ -230,7 +230,7 @@ function textMessage(msg) {
 }
 function replyMessage(msg) {
   let now = moment().add(7, "hours");
-  let hours = moment().hour();
+  let hours = now.hour();
 
   let cmd = {
     menu: ["food", "menu", "เมนู", "อาหาร"],
