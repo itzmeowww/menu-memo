@@ -143,7 +143,7 @@ app.post("/webhook", (req, res) => {
   logger.info("date : " + date);
 
   let replymsg = "";
-  logger.info("MESSAGE : " +JSON.stringify.(msg));
+  logger.info("MESSAGE : " + JSON.stringify(msg));
   logger.info(req);
 
   if (date in db) {
