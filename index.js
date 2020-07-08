@@ -125,53 +125,54 @@ app.post("/webhook", line.middleware(config), (req, res) => {
     });
 });
 
-function replyText(msg) {
-  let now = moment().add(7, "hours");
-  let date = now.format("M/D/YYYY");
-  if (date in db) {
-    let menu = db[date];
-    replymsg += now.format("LL") + "\n\n";
-    let breakfast = "";
-    menu.Breakfast.forEach((x) => {
-      breakfast += x;
-      breakfast += "\n";
-    });
-    let lunch = "";
-    menu.Lunch.forEach((x) => {
-      lunch += x;
-      lunch += "\n";
-    });
-    let dinner = "";
-    menu.Dinner.forEach((x) => {
-      dinner += x;
-      dinner += "\n";
-    });
+// function replyText(msg) {
+//   let now = moment().add(7, "hours");
+//   let date = now.format("M/D/YYYY");
+//   if (date in db) {
+//     let menu = db[date];
+//     replymsg += now.format("LL") + "\n\n";
+//     let breakfast = "";
+//     menu.Breakfast.forEach((x) => {
+//       breakfast += x;
+//       breakfast += "\n";
+//     });
+//     let lunch = "";
+//     menu.Lunch.forEach((x) => {
+//       lunch += x;
+//       lunch += "\n";
+//     });
+//     let dinner = "";
+//     menu.Dinner.forEach((x) => {
+//       dinner += x;
+//       dinner += "\n";
+//     });
 
-    if (
-      msg.toLowerCase().includes("food") ||
-      msg.includes("อาหาร") ||
-      msg.toLowerCase().includes("menu") ||
-      msg.includes("เมนู") ||
-      msg.toLowerCase().includes("hungry") ||
-      msg.includes("หิว")
-    ) {
-      replymsg += "Breakfast\n" + breakfast + "\n";
-      replymsg += "Lunch\n" + lunch + "\n";
-      replymsg += "Dinner\n" + dinner;
-    } else if (msg.toLowerCase().includes("breakfast")) {
-      replymsg += "Breakfast\n" + breakfast;
-    } else if (msg.toLowerCase().includes("lunch")) {
-      replymsg += "Lunch\n" + lunch;
-    } else if (msg.toLowerCase().includes("dinner")) {
-      replymsg += "Dinner\n" + dinner;
-    } else {
-      replymsg = "🙄";
-    }
-  } else {
-    replymsg = "Try again later~";
-  }
-  return replymsg;
-}
+//     if (
+//       msg.toLowerCase().includes("food") ||
+//       msg.includes("อาหาร") ||
+//       msg.toLowerCase().includes("menu") ||
+//       msg.includes("เมนู") ||
+//       msg.toLowerCase().includes("hungry") ||
+//       msg.includes("หิว")
+//     ) {
+//       replymsg += "Breakfast\n" + breakfast + "\n";
+//       replymsg += "Lunch\n" + lunch + "\n";
+//       replymsg += "Dinner\n" + dinner;
+//     } else if (msg.toLowerCase().includes("breakfast")) {
+//       replymsg += "Breakfast\n" + breakfast;
+//     } else if (msg.toLowerCase().includes("lunch")) {
+//       replymsg += "Lunch\n" + lunch;
+//     } else if (msg.toLowerCase().includes("dinner")) {
+//       replymsg += "Dinner\n" + dinner;
+//     } else {
+//       replymsg = "🙄";
+//     }
+//   } else {
+//     replymsg = "Try again later~";
+//   }
+//   return replymsg;
+// }
+
 function flexHeader(txt) {
   let ret = {
     type: "box",
@@ -293,7 +294,7 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
   let msg = event.message.text;
-  let replymsg = replyText(msg);
+  // let replymsg = replyText(msg);
   let userId = event.source.userId;
   lineClient.getProfile(userId).then((profile) => {
     logger.info(profile.displayName + " says " + msg);
