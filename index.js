@@ -228,14 +228,14 @@ function flexBody(meals) {
     layout: "vertical",
     backgroundColor: "#e5edff",
   };
-  let mealName = ["breakfast", "lunch", "dinner"];
+  let mealName = ["Breakfast", "Lunch", "Dinner"];
   mealName.forEach((meal) => {
-    if (meal in meals) {
+    if (meal.toLowerCase() in meals) {
       contents.push(flexMeal(meal));
       meals[meal].forEach((menu) => {
         contents.push(flexMenu(menu));
-        contents.push(flexSeparator());
       });
+      contents.push(flexSeparator());
     }
   });
   if (contents[contents.length - 1].type == "separator") {
