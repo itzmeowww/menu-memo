@@ -246,13 +246,10 @@ function replyMessage(msg) {
       now = now.add(1, "days");
     } else if (hours > 13) {
       msg = "dinner";
-      now = now.add(1, "days");
     } else if (hours > 8) {
       msg = "lunch";
-      now = now.add(1, "days");
     } else {
       msg = "breakfast";
-      now = now.add(1, "days");
     }
   }
   let date = now.format("M/D/YYYY");
