@@ -71,7 +71,7 @@ function replyMessage(msg) {
     nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
     help: ["help", "cmd", "ช่วย"],
   };
-  
+
   let cmdList = ["food", "menu", "breakfast", "lunch", "dinner", "หิว", "???"];
   if (isInStr(msg, cmd["nextMeal"])) {
     if (hours >= 19) {
@@ -87,26 +87,25 @@ function replyMessage(msg) {
     }
   }
 
-  if(isInStr(msg, cmd["breakfast"]){
-    if(hours >= 9){
+  if (isInStr(msg, cmd["breakfast"])) {
+    if (hours >= 9) {
       now = now.add(1, "days");
       dateOpt = " (Tomorrow)";
     }
-  }
-  else if(isInStr(msg, cmd["lunch"]){
-    if(hours >= 13){
+  } else if (isInStr(msg, cmd["lunch"])) {
+    if (hours >= 13) {
       now = now.add(1, "days");
       dateOpt = " (Tomorrow)";
     }
-  }else if(isInStr(msg, cmd["dinner"]){
-    if(hours >= 19){
+  } else if (isInStr(msg, cmd["dinner"])) {
+    if (hours >= 19) {
       now = now.add(1, "days");
       dateOpt = " (Tomorrow)";
     }
   }
   let date = now.format("M/D/YYYY");
   let date2 = now.format("D MMM YYYY");
-  
+
   let menu = db[date];
   let meals = {};
 
@@ -175,4 +174,3 @@ app.get("/test/:cmd", (req, res) => {
 });
 
 app.listen(port);
-
