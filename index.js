@@ -54,17 +54,19 @@ console.log("Database test", db["7/31/2020"]);
 //TODO tmr : tomorrow's meal
 
 function isInStr(msg, msgList) {
+  let have = false;
   msgList.forEach((x) => {
-    if (msg.toLowerCase().includes(msg)) {
-      return true;
+    // console.log(msg.toLowerCase() + " " + x);
+    if (msg.toLowerCase().includes(x)) {
+      have = true;
     }
   });
-  return false;
+  return have;
 }
 
 function replyMessage(msg) {
   let now = moment().add(7, "hours");
-  let hour = moment().hour();
+  let hours = now.hour();
 
   let cmd = {
     menu: ["food", "menu", "เมนู", "อาหาร"],
@@ -75,18 +77,15 @@ function replyMessage(msg) {
     help: ["help", "cmd", "ช่วย"],
   };
   if (isInStr(msg, cmd["nextMeal"])) {
-    if (hour > 19) {
+    if (hours > 19) {
       msg = "breakfast";
       now = now.add(1, "days");
-    } else if (hour > 13) {
+    } else if (hours > 13) {
       msg = "dinner";
-      now = now.add(1, "days");
-    } else if (hour > 8) {
+    } else if (hours > 8) {
       msg = "lunch";
-      now = now.add(1, "days");
     } else {
       msg = "breakfast";
-      now = now.add(1, "days");
     }
   }
   let date = now.format("M/D/YYYY");
@@ -158,4 +157,18 @@ app.post("/test", (req, res) => {
   res.status(200).end();
 });
 
+
 app.listen(port);
+
+// setTimeout(() => {
+//   let cmd = {
+//     menu: ["food", "menu", "เมนู", "อาหาร"],
+//     breakfast: ["breakfast", "bf", "morning", "เช้า"],
+//     lunch: ["lunch", "midday", "เที่ยง"],
+//     dinner: ["dinner", "เย็น"],
+//     nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
+//     help: ["help", "cmd", "ช่วย"],
+//   };
+//   console.log(isInStr("หิว", cmd["nextMeal"]));
+// }, 4000);
+
