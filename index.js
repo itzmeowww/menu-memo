@@ -1,5 +1,3 @@
-// Echo reply
-
 const winston = require("winston");
 const line = require("@line/bot-sdk");
 const moment = require("moment"); // require
@@ -120,11 +118,13 @@ app.get("/", (req, res) => {
 //TODO tmr : tomorrow's meal
 
 app.post("/webhook", line.middleware(config), (req, res) => {
-  Promise.all(req.body.events.map(handleEvent)).then((result) =>
-    res.json(result)
-  );
+  Promise.all(req.body.events.map(handleEvent))
+    .then((result) => res.json(result))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).end();
+    });
 });
-app.listen(port);
 
 function replyMessage(msg) {
   let now = new Date();
@@ -184,8 +184,12 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
   let msg = event.message.text;
+  let replymsg = replyMessage(msg);
+  logger.info(msg + " -> " + replymsg);
   return lineClient.replyMessage(event.replyToken, {
     type: "text",
-    text: replyMessage(msg),
+    text: replymsg,
   });
 }
+
+app.listen(port);
