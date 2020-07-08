@@ -126,6 +126,7 @@ function replyMessage(msg) {
   }
 
   let date, date2;
+  console.log("DB[msg] " + db[msg]);
   if (msg in db) {
     date = msg;
     date2 = moment(date, "MM/DD/YYYY").format("D MMM YYYY");
