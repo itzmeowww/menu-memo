@@ -117,6 +117,7 @@ function flexHelp(cmdList) {
       body: flexHelpBody(cmdList),
     },
   };
+  return ret;
 }
 function textMessage(msg) {
   let ret = {
