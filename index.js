@@ -126,11 +126,11 @@ function replyMessage(msg) {
   }
 
   let date, date2;
-  console.log("DB[msg] " + db[msg]);
+
   if (msg in db) {
     date = msg;
     date2 = moment(date, "MM/DD/YYYY").format("D MMM YYYY");
-    console.log("DAYY " + date + " " + date2);
+    msg = "menu";
   } else {
     date = now.format("M/D/YYYY");
     date2 = now.format("D MMM YYYY");
