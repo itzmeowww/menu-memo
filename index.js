@@ -298,7 +298,7 @@ function replyMessage(msg) {
     } else {
       return textMessage("🙄");
     }
-    return flexMessage(date, meals);
+    return flexMessage(date2, meals);
   } else {
     return textMessage("Try again later~");
   }
