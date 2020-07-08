@@ -122,10 +122,12 @@ function replyMessage(msg) {
   } else if (isInStr(msg, cmd["tomorrow"])) {
     now = now.add(1, "days");
     dateOpt = " (Tomorrow)";
+    msg = "menu";
   }
+
   let date, date2;
   if (msg in db) {
-    date = now.format("M/D/YYYY");
+    date = msg;
     date2 = moment(date, "M/D/YYYY").format("D MMM YYYY");
   } else {
     date = now.format("M/D/YYYY");
@@ -154,7 +156,6 @@ function replyMessage(msg) {
       meals["dinner"] = dinner;
     } else if (isInStr(msg, cmd["help"])) {
       return flexHelp(cmdList);
-    } else if (msg in db) {
     } else {
       return textMessage("🙄");
     }
