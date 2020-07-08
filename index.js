@@ -232,7 +232,7 @@ function flexBody(meals) {
   mealName.forEach((meal) => {
     if (meal.toLowerCase() in meals) {
       contents.push(flexMeal(meal));
-      meals[meal].forEach((menu) => {
+      meals[meal.toLowerCase()].forEach((menu) => {
         contents.push(flexMenu(menu));
       });
       contents.push(flexSeparator());
@@ -254,7 +254,7 @@ function flexMessage(date, meals) {
       header: flexHeader(date),
       body: flexBody(meals),
     },
-    size: "kilo",
+    size: "micro",
   };
 
   return ret;
