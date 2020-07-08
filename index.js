@@ -16,6 +16,7 @@ const bodyParser = require("body-parser");
 const request = require("request");
 const { google } = require("googleapis");
 const { relativeTimeRounding } = require("moment");
+const { content } = require("googleapis/build/src/apis/content");
 
 require("dotenv").config();
 
@@ -211,6 +212,15 @@ function flexMenu(menu) {
     offsetTop: "5px",
   };
 }
+
+function flexSeparator(){
+  let ret =  {
+    "type": "separator",
+    "margin": "md",
+    "color": "#000000"
+  },
+  return ret;
+}
 function flexBody(meals) {
   let contents = [];
   let ret = {
@@ -224,9 +234,13 @@ function flexBody(meals) {
       contents.push(flexMeal(meal));
       meals[meal].forEach((menu) => {
         contents.push(flexMenu(menu));
+        contents.push(flexSeparator())
       });
     }
   });
+  if(contents[contents.length-1].type == 'separator'){
+    contents.pop();
+  }
 
   ret["contents"] = contents;
   return ret;
@@ -240,6 +254,7 @@ function flexMessage(date, meals) {
       header: flexHeader(date),
       body: flexBody(meals),
     },
+    "size": "kilo",
   };
 
   return ret;
