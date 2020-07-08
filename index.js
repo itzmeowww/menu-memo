@@ -269,7 +269,7 @@ function textMessage(msg) {
 function replyMessage(msg) {
   let now = moment().add(7, "hours");
   let date = now.format("M/D/YYYY");
-  let date2 = now.format("D/MMM/YYYY");
+  let date2 = now.format("D MMM YYYY");
   let meals = {};
   let menu = db[date];
 
@@ -298,7 +298,7 @@ function replyMessage(msg) {
     } else {
       return textMessage("🙄");
     }
-    return flexMessage(date2, meals);
+    return flexMessage(date, meals);
   } else {
     return textMessage("Try again later~");
   }
