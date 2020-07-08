@@ -12,15 +12,18 @@ const logger = winston.createLogger({
 });
 logger.info(moment.locale());
 const express = require("express");
-const bodyParser = require("body-parser");
-const request = require("request");
-const { google } = require("googleapis");
-const { relativeTimeRounding } = require("moment");
-const { content } = require("googleapis/build/src/apis/content");
+// const bodyParser = require("body-parser");
+// const request = require("request");
+// const { google } = require("googleapis");
+// const { relativeTimeRounding } = require("moment");
+// const { content } = require("googleapis/build/src/apis/content");
 
 require("dotenv").config();
 
-// const { init } = require("./sheet");
+const sheet = require("./sheet");
+
+const { flexMessage, textMessage } = require("./style");
+
 const app = express();
 const port = process.env.PORT || 5000;
 const channel_id = process.env.channel_id;
@@ -32,99 +35,14 @@ const config = {
   channelSecret: secret,
 };
 
-let db = {};
-const keys = {
-  type: "service_account",
-  project_id: "food-fetcher-282419",
-  private_key_id: process.env.private_key_id,
-  private_key: process.env.private_key,
-  client_email: "food-fetch@food-fetcher-282419.iam.gserviceaccount.com",
-  client_id: "114268373868823534996",
-  auth_uri: "https://accounts.google.com/o/oauth2/auth",
-  token_uri: "https://oauth2.googleapis.com/token",
-  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-  client_x509_cert_url:
-    "https://www.googleapis.com/robot/v1/metadata/x509/food-fetch%40food-fetcher-282419.iam.gserviceaccount.com",
-};
+const db = sheet();
 
-const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
-  "https://www.googleapis.com/auth/spreadsheets.readonly",
-]);
-// Google sheet Auth
-client.authorize(async (err, res) => {
-  if (err) {
-    console.log(err);
-    logger.error(err);
-  } else {
-    logger.info("Authorized !");
-    gsrun(client);
-  }
-});
-//Fetch menu from Google sheet
-function gsrun(cl) {
-  const gsapi = google.sheets({
-    version: "v4",
-    auth: cl,
-  });
-
-  return gsapi.spreadsheets
-    .get({
-      spreadsheetId: "1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw",
-    })
-    .then((sp) => {
-      for (let i = 0; i < sp.data.sheets.length; i++) {
-        let x = sp.data.sheets[i];
-        let date = "";
-        if (!x.properties.title.endsWith("19") && !x.properties.hidden) {
-          //   console.log(x.properties);
-          gsapi.spreadsheets.values
-            .get({
-              spreadsheetId: "1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw",
-              range: x.properties.title,
-            })
-            .then((data) => {
-              //   console.log(data.data.values);
-              data.data.values.forEach((x) => {
-                if (x.length != 0 && x[0] != "" && x[0] != date) {
-                  date = x[0];
-                  console.log(date);
-                }
-                if (date != "") {
-                  //   console.log(db);
-                  //   console.log(x);
-                  if (!(date in db))
-                    db[date] = {
-                      Breakfast: [],
-                      Lunch: [],
-                      Dinner: [],
-                    };
-
-                  if (x[1]) db[date]["Breakfast"].push(x[1]);
-                  if (x[2]) db[date]["Lunch"].push(x[2]);
-                  if (x[3]) db[date]["Dinner"].push(x[3]);
-                }
-              });
-            });
-        }
-      }
-    });
-}
+console.log("Database test", db["7/31/2020"]);
+// ! ISSUE : db is not valid at this point, but should be
 
 //TODO help : show commands
 //TODO time : if the meal end show next meal
 //TODO tmr : tomorrow's meal
-app.get("/", (req, res) => {
-  res.send("HI");
-  console.log(req.msg);
-});
-app.post("/webhook", line.middleware(config), (req, res) => {
-  Promise.all(req.body.events.map(handleEvent))
-    .then((result) => res.json(result))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).end();
-    });
-});
 
 function isInStr(msg, msgList) {
   msgList.forEach((x) => {
@@ -135,100 +53,9 @@ function isInStr(msg, msgList) {
   return false;
 }
 
-function flexHeader(txt) {
-  let ret = {
-    type: "box",
-    layout: "vertical",
-    contents: [
-      {
-        type: "text",
-        text: txt,
-        align: "center",
-        weight: "bold",
-        size: "lg",
-      },
-    ],
-    backgroundColor: "#fecece",
-  };
-  return ret;
-}
-function flexMeal(meal) {
-  return {
-    type: "text",
-    text: meal,
-    align: "center",
-    gravity: "center",
-    margin: "md",
-    weight: "bold",
-    offsetTop: "0px",
-    offsetBottom: "15px",
-  };
-}
-function flexMenu(menu) {
-  return {
-    type: "text",
-    text: menu,
-    align: "center",
-    gravity: "center",
-    offsetTop: "5px",
-  };
-}
-function flexSeparator() {
-  let ret = {
-    type: "separator",
-    margin: "md",
-    color: "#000000",
-  };
-  return ret;
-}
-function flexBody(meals) {
-  let contents = [];
-  let ret = {
-    type: "box",
-    layout: "vertical",
-    backgroundColor: "#e5edff",
-  };
-  let mealName = ["Breakfast", "Lunch", "Dinner"];
-  mealName.forEach((meal) => {
-    if (meal.toLowerCase() in meals) {
-      contents.push(flexMeal(meal));
-      meals[meal.toLowerCase()].forEach((menu) => {
-        contents.push(flexMenu(menu));
-      });
-      contents.push(flexSeparator());
-    }
-  });
-  if (contents[contents.length - 1].type == "separator") {
-    contents.pop();
-  }
-
-  ret["contents"] = contents;
-  return ret;
-}
-function flexMessage(date, meals) {
-  let ret = {
-    type: "flex",
-    altText: "Menu Memo sent you a menu!",
-    contents: {
-      type: "bubble",
-      header: flexHeader(date),
-      body: flexBody(meals),
-    },
-    size: "micro",
-  };
-
-  return ret;
-}
-function textMessage(msg) {
-  let ret = {
-    type: "text",
-    text: msg,
-  };
-  return ret;
-}
 function replyMessage(msg) {
   let now = moment().add(7, "hours");
-  let hours = moment().hour();
+  let hour = moment().hour();
 
   let cmd = {
     menu: ["food", "menu", "เมนู", "อาหาร"],
@@ -283,6 +110,7 @@ function replyMessage(msg) {
     return textMessage("Try again later~");
   }
 }
+
 const lineClient = new line.Client(config);
 
 function handleEvent(event) {
@@ -299,8 +127,17 @@ function handleEvent(event) {
   return lineClient.replyMessage(event.replyToken, replyMessage(msg));
 }
 
-app.listen(port);
+app.get("/", (req, res) => {
+  res.send("HI");
+  console.log(req.msg);
+});
+app.post("/webhook", line.middleware(config), (req, res) => {
+  Promise.all(req.body.events.map(handleEvent))
+    .then((result) => res.json(result))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).end();
+    });
+});
 
-// setTimeout(() => {
-//   console.log(replyMessage("f"));
-// }, 4000);
+app.listen(port);
