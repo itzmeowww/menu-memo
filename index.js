@@ -12,10 +12,6 @@ const logger = winston.createLogger({
 });
 logger.info(moment.locale());
 const express = require("express");
-// const request = require("request");
-// const { google } = require("googleapis");
-// const { relativeTimeRounding } = require("moment");
-// const { content } = require("googleapis/build/src/apis/content");
 
 require("dotenv").config();
 
@@ -52,7 +48,6 @@ console.log("Database test", db["7/31/2020"]);
 //TODO help : show commands
 //TODO time : if the meal end show next meal
 //TODO tmr : tomorrow's meal
-
 function isInStr(msg, msgList) {
   let have = false;
   msgList.forEach((x) => {
@@ -149,22 +144,12 @@ app.post("/webhook", line.middleware(config), (req, res) => {
       res.status(500).end();
     });
 });
-app.post("/test", (req, res) => {
-  let cmd = req.params;
-  // console.dir(replyMessage(cmd));
+app.get("/test/:cmd", (req, res) => {
+  let cmd = req.params.cmd;
+  if (!cmd) res.status(500).end();
+  console.dir(replyMessage(cmd));
+  res.json(replyMessage(cmd));
   res.status(200).end();
 });
 
 app.listen(port);
-
-// setTimeout(() => {
-//   let cmd = {
-//     menu: ["food", "menu", "เมนู", "อาหาร"],
-//     breakfast: ["breakfast", "bf", "morning", "เช้า"],
-//     lunch: ["lunch", "midday", "เที่ยง"],
-//     dinner: ["dinner", "เย็น"],
-//     nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
-//     help: ["help", "cmd", "ช่วย"],
-//   };
-//   console.log(isInStr("หิว", cmd["nextMeal"]));
-// }, 4000);
