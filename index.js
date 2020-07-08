@@ -70,9 +70,21 @@ function replyMessage(msg) {
     dinner: ["dinner", "เย็น"],
     nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
     help: ["help", "cmd", "ช่วย"],
+    tomorrow: ["tomorrow", "tmr", "พรุ่งนี้"],
   };
 
-  let cmdList = ["food", "menu", "breakfast", "lunch", "dinner", "หิว", "???"];
+  let cmdList = [
+    "food",
+    "menu",
+    "breakfast",
+    "lunch",
+    "dinner",
+    "tomorrow",
+    "หิว",
+    "???",
+    "M/D/YYYY",
+  ];
+
   if (isInStr(msg, cmd["nextMeal"])) {
     if (hours >= 19) {
       msg = "breakfast";
@@ -107,6 +119,9 @@ function replyMessage(msg) {
       now = now.add(1, "days");
       dateOpt = " (Tomorrow)";
     }
+  } else if (isInStr(msg, cmd["tomorrow"])) {
+    now = now.add(1, "days");
+    dateOpt = " (Tomorrow)";
   }
   let date, date2;
   if (msg in db) {
