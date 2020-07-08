@@ -102,9 +102,20 @@ function replyMessage(msg) {
       now = now.add(1, "days");
       dateOpt = " (Tomorrow)";
     }
+  } else if (isInStr(msg, cmd["menu"])) {
+    if (hours >= 19) {
+      now = now.add(1, "days");
+      dateOpt = " (Tomorrow)";
+    }
   }
-  let date = now.format("M/D/YYYY");
-  let date2 = now.format("D MMM YYYY");
+  let date, date2;
+  if (msg in db) {
+    date = now.format("M/D/YYYY");
+    date2 = moment(date, "M/D/YYYY").format("D MMM YYYY");
+  } else {
+    date = now.format("M/D/YYYY");
+    date2 = now.format("D MMM YYYY");
+  }
 
   let menu = db[date];
   let meals = {};
@@ -128,6 +139,7 @@ function replyMessage(msg) {
       meals["dinner"] = dinner;
     } else if (isInStr(msg, cmd["help"])) {
       return flexHelp(cmdList);
+    } else if (msg in db) {
     } else {
       return textMessage("🙄");
     }
