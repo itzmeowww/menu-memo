@@ -116,6 +116,7 @@ function flexHelp(cmdList) {
       header: flexHeader("Help"),
       body: flexHelpBody(cmdList),
     },
+    size: "nano",
   };
   return ret;
 }
