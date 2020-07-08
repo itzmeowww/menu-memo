@@ -213,12 +213,12 @@ function flexMenu(menu) {
   };
 }
 
-function flexSeparator(){
-  let ret =  {
-    "type": "separator",
-    "margin": "md",
-    "color": "#000000"
-  },
+function flexSeparator() {
+  let ret = {
+    type: "separator",
+    margin: "md",
+    color: "#000000",
+  };
   return ret;
 }
 function flexBody(meals) {
@@ -234,11 +234,11 @@ function flexBody(meals) {
       contents.push(flexMeal(meal));
       meals[meal].forEach((menu) => {
         contents.push(flexMenu(menu));
-        contents.push(flexSeparator())
+        contents.push(flexSeparator());
       });
     }
   });
-  if(contents[contents.length-1].type == 'separator'){
+  if (contents[contents.length - 1].type == "separator") {
     contents.pop();
   }
 
@@ -254,7 +254,7 @@ function flexMessage(date, meals) {
       header: flexHeader(date),
       body: flexBody(meals),
     },
-    "size": "kilo",
+    size: "kilo",
   };
 
   return ret;
@@ -269,6 +269,7 @@ function textMessage(msg) {
 function replyMessage(msg) {
   let now = moment().add(7, "hours");
   let date = now.format("M/D/YYYY");
+  let date2 = now.format("D/MMM/YYYY");
   let meals = {};
   let menu = db[date];
 
@@ -297,7 +298,7 @@ function replyMessage(msg) {
     } else {
       return textMessage("🙄");
     }
-    return flexMessage(date, meals);
+    return flexMessage(date2, meals);
   } else {
     return textMessage("Try again later~");
   }
