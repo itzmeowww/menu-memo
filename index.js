@@ -1,29 +1,16 @@
 // Echo reply
 
 const winston = require("winston");
-var moment = require("moment"); // require
-moment.locale("th");
+const line = require("@line/bot-sdk");
+const moment = require("moment"); // require
 
-moment.updateLocale("th", {
-  months: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ],
-});
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.simple(),
-  transports: [new winston.transports.Console()],
+  transports: [
+    new winston.transports.File({ filename: "log.log" }),
+    new winston.transports.Console(),
+  ],
 });
 logger.info(moment.locale());
 const express = require("express");
@@ -32,12 +19,18 @@ const request = require("request");
 const { google } = require("googleapis");
 
 require("dotenv").config();
+
 // const { init } = require("./sheet");
 const app = express();
 const port = process.env.PORT || 5000;
 const channel_id = process.env.channel_id;
 const secret = process.env.secret;
 const access_token = process.env.access_token;
+
+const config = {
+  channelAccessToken: access_token,
+  channelSecret: secret,
+};
 
 let db = {};
 const keys = {
@@ -59,15 +52,12 @@ const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
 ]);
 // Google sheet Auth
 client.authorize(async (err, res) => {
-  logger.info(err);
-  logger.info(res);
   if (err) {
     console.log(err);
     logger.error(err);
   } else {
-    console.log("Succeed!");
-    logger.info("Auth");
-    gsrun(client).then(() => {});
+    logger.info("Authorized !");
+    gsrun(client);
   }
 });
 //Fetch menu from Google sheet
@@ -129,23 +119,19 @@ app.get("/", (req, res) => {
 //TODO time : if the meal end show next meal
 //TODO tmr : tomorrow's meal
 
-app.post("/webhook", (req, res) => {
-  let reply_token = req.body.events[0].replyToken;
-  let msg = req.body.events[0].message.text;
+app.post("/webhook", line.middleware(config), (req, res) => {
+  Promise.all(req.body.events.map(handleEvent)).then((result) =>
+    res.json(result)
+  );
+});
+app.listen(port);
 
+function replyMessage(msg) {
   let now = new Date();
-  logger.info(now);
-  logger.info(moment().add(7, "hours").format("l"));
-  logger.info(moment().add(7, "hours").format("LL"));
-  logger.info(moment().add(7, "hours").format("LLL"));
-  logger.info(moment().add(7, "hours").local().format("LLL"));
   let date = moment().add(7, "hours").format("M/D/YYYY");
   logger.info("date : " + date);
-
   let replymsg = "";
   logger.info("MESSAGE : " + msg);
-  logger.info(JSON.stringify(req));
-
   if (date in db) {
     let menu = db[date];
     replymsg += moment().add(7, "hours").format("LL") + "\n\n";
@@ -188,35 +174,18 @@ app.post("/webhook", (req, res) => {
   } else {
     replymsg = "Try again later~";
   }
+  return replymsg;
+}
 
-  reply(reply_token, replymsg);
+const lineClient = new line.Client(config);
 
-  res.sendStatus(200);
-});
-app.listen(port);
-
-function reply(reply_token, msg) {
-  let headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer {" + access_token + "}",
-  };
-  let body = JSON.stringify({
-    replyToken: reply_token,
-    messages: [
-      {
-        type: "text",
-        text: msg,
-      },
-    ],
+function handleEvent(event) {
+  if (event.type !== "message" || event.message.type !== "text") {
+    return Promise.resolve(null);
+  }
+  let msg = event.message.text;
+  return lineClient.replyMessage(event.replyToken, {
+    type: "text",
+    text: replyMessage(msg),
   });
-  request.post(
-    {
-      url: "https://api.line.me/v2/bot/message/reply",
-      headers: headers,
-      body: body,
-    },
-    (err, res, body) => {
-      console.log("status = " + res.statusCode);
-    }
-  );
 }
