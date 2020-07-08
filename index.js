@@ -127,12 +127,14 @@ app.post("/webhook", line.middleware(config), (req, res) => {
 });
 
 function isInStr(msg, msgList) {
+  let have = false;
   msgList.forEach((x) => {
+    console.log(msg.toLowerCase() + " " + x);
     if (msg.toLowerCase().includes(x)) {
-      return true;
+      have = true;
     }
   });
-  return false;
+  return have;
 }
 
 function flexHeader(txt) {
@@ -239,13 +241,13 @@ function replyMessage(msg) {
     help: ["help", "cmd", "ช่วย"],
   };
   if (isInStr(msg, cmd["nextMeal"])) {
-    if (hour > 19) {
+    if (hours > 19) {
       msg = "breakfast";
       now = now.add(1, "days");
-    } else if (hour > 13) {
+    } else if (hours > 13) {
       msg = "dinner";
       now = now.add(1, "days");
-    } else if (hour > 8) {
+    } else if (hours > 8) {
       msg = "lunch";
       now = now.add(1, "days");
     } else {
@@ -302,5 +304,13 @@ function handleEvent(event) {
 app.listen(port);
 
 // setTimeout(() => {
-//   console.log(replyMessage("f"));
+//   let cmd = {
+//     menu: ["food", "menu", "เมนู", "อาหาร"],
+//     breakfast: ["breakfast", "bf", "morning", "เช้า"],
+//     lunch: ["lunch", "midday", "เที่ยง"],
+//     dinner: ["dinner", "เย็น"],
+//     nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
+//     help: ["help", "cmd", "ช่วย"],
+//   };
+//   console.log(isInStr("หิว", cmd["nextMeal"]));
 // }, 4000);
