@@ -108,11 +108,6 @@ function gsrun(cl) {
     });
 }
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.get("/", (req, res) => {
-  res.send({});
-});
 //TODO help : show commands
 //TODO time : if the meal end show next meal
 //TODO tmr : tomorrow's meal
