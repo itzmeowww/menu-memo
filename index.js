@@ -12,7 +12,6 @@ const logger = winston.createLogger({
 });
 logger.info(moment.locale());
 const express = require("express");
-// const bodyParser = require("body-parser");
 // const request = require("request");
 // const { google } = require("googleapis");
 // const { relativeTimeRounding } = require("moment");
@@ -20,7 +19,7 @@ const express = require("express");
 
 require("dotenv").config();
 
-const sheet = require("./sheet");
+const { gsrun, client } = require("./sheet");
 
 const { flexMessage, textMessage } = require("./style");
 
@@ -35,7 +34,17 @@ const config = {
   channelSecret: secret,
 };
 
-const db = sheet();
+let db = {};
+client.authorize(async (err, res) => {
+  if (err) {
+    console.log(err);
+    // logger.error(err);
+  } else {
+    // logger.info("Authorized !");
+    db = await gsrun(client);
+    console.log("db listed");
+  }
+});
 
 console.log("Database test", db["7/31/2020"]);
 // ! ISSUE : db is not valid at this point, but should be
@@ -81,8 +90,8 @@ function replyMessage(msg) {
   }
   let date = now.format("M/D/YYYY");
   let date2 = now.format("D MMM YYYY");
-  let meals = {};
   let menu = db[date];
+  let meals = {};
 
   let breakfast = [...menu.Breakfast];
   let lunch = [...menu.Lunch];
@@ -90,9 +99,11 @@ function replyMessage(msg) {
 
   if (date in db) {
     if (isInStr(msg, cmd["menu"])) {
-      meals["breakfast"] = breakfast;
-      meals["lunch"] = lunch;
-      meals["dinner"] = dinner;
+      meals = {
+        breakfast,
+        lunch,
+        dinner,
+      };
     } else if (isInStr(msg, cmd["breakfast"])) {
       meals["breakfast"] = breakfast;
     } else if (isInStr(msg, cmd["lunch"])) {
@@ -126,6 +137,8 @@ function handleEvent(event) {
   return lineClient.replyMessage(event.replyToken, replyMessage(msg));
 }
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("HI");
   console.log(req.msg);
@@ -137,6 +150,11 @@ app.post("/webhook", line.middleware(config), (req, res) => {
       console.error(err);
       res.status(500).end();
     });
+});
+app.post("/test", (req, res) => {
+  let cmd = req.body.command;
+  console.dir(replyMessage(cmd));
+  res.status(200).end();
 });
 
 

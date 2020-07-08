@@ -64,22 +64,4 @@ async function gsrun(cl) {
   return database;
 }
 
-const init = () => {
-  return new Promise((resolve, reject) => {
-    let db = {};
-    client.authorize(async (err, res) => {
-      if (err) {
-        console.log(err);
-        return reject(err);
-        // logger.error(err);
-      } else {
-        // logger.info("Authorized !");
-        db = await gsrun(client);
-        console.log("this is db", db);
-      }
-    });
-    return resolve(db);
-  });
-};
-
-module.exports = init;
+module.exports = { gsrun, client };
