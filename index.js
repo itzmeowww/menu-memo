@@ -128,7 +128,8 @@ function replyMessage(msg) {
   let date, date2;
   if (msg in db) {
     date = msg;
-    date2 = moment(date, "M/D/YYYY").format("D MMM YYYY");
+    date2 = moment(date, "MM/DD/YYYY").format("D MMM YYYY");
+    console.log("DAYY " + date + " " + date2);
   } else {
     date = now.format("M/D/YYYY");
     date2 = now.format("D MMM YYYY");
