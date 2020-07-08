@@ -199,8 +199,8 @@ function flexMeal(meal) {
     gravity: "center",
     margin: "md",
     weight: "bold",
-    offsetTop: "5px",
-    offsetBottom: "5px",
+    offsetTop: "0px",
+    offsetBottom: "15px",
   };
 }
 function flexMenu(menu) {
