@@ -144,6 +144,7 @@ app.post("/webhook", (req, res) => {
 
   let replymsg = "";
   logger.info("MESSAGE : " + msg);
+  logger.info(req);
 
   if (date in db) {
     let menu = db[date];
