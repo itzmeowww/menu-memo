@@ -15,6 +15,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const { google } = require("googleapis");
+const { relativeTimeRounding } = require("moment");
 
 require("dotenv").config();
 
@@ -111,7 +112,10 @@ function gsrun(cl) {
 //TODO help : show commands
 //TODO time : if the meal end show next meal
 //TODO tmr : tomorrow's meal
-
+app.get("/", (req, res) => {
+  res.send("HI");
+  console.log(req.msg);
+});
 app.post("/webhook", line.middleware(config), (req, res) => {
   Promise.all(req.body.events.map(handleEvent))
     .then((result) => res.json(result))
@@ -121,15 +125,12 @@ app.post("/webhook", line.middleware(config), (req, res) => {
     });
 });
 
-function replyMessage(msg) {
-  let now = new Date();
-  let date = moment().add(7, "hours").format("M/D/YYYY");
-  logger.info("date : " + date);
-  let replymsg = "";
-  logger.info("MESSAGE : " + msg);
+function replyText(msg) {
+  let now = moment().add(7, "hours");
+  let date = now.format("M/D/YYYY");
   if (date in db) {
     let menu = db[date];
-    replymsg += moment().add(7, "hours").format("LL") + "\n\n";
+    replymsg += now.format("LL") + "\n\n";
     let breakfast = "";
     menu.Breakfast.forEach((x) => {
       breakfast += x;
@@ -171,7 +172,120 @@ function replyMessage(msg) {
   }
   return replymsg;
 }
+function flexHeader(txt) {
+  let ret = {
+    type: "box",
+    layout: "vertical",
+    contents: [
+      {
+        type: "text",
+        text: txt,
+        align: "center",
+        weight: "bold",
+        size: "lg",
+      },
+    ],
+    backgroundColor: "#fecece",
+  };
+  return ret;
+}
+function flexMeal(meal) {
+  return {
+    type: "text",
+    text: meal,
+    align: "center",
+    gravity: "center",
+    margin: "md",
+    weight: "bold",
+    offsetTop: "5px",
+    offsetBottom: "5px",
+  };
+}
+function flexMenu(menu) {
+  return {
+    type: "text",
+    text: menu,
+    align: "center",
+    gravity: "center",
+    offsetTop: "5px",
+  };
+}
+function flexBody(meals) {
+  let contents = [];
+  let ret = {
+    type: "box",
+    layout: "vertical",
+    backgroundColor: "#e5edff",
+  };
+  let mealName = ["breakfast", "lunch", "dinner"];
+  mealName.forEach((meal) => {
+    if (meal in meals) {
+      contents.push(flexMeal(meal));
+      meals[meal].forEach((menu) => {
+        contents.push(flexMenu(menu));
+      });
+    }
+  });
 
+  ret["contents"] = contents;
+  return ret;
+}
+function flexMessage(date, meals) {
+  let ret = {
+    type: "flex",
+    altText: "this is a flex message",
+    contents: {
+      type: "bubble",
+      header: flexHeader(date),
+      body: flexBody(meals),
+    },
+  };
+
+  return ret;
+}
+function textMessage(msg) {
+  let ret = {
+    type: "text",
+    text: msg,
+  };
+  return ret;
+}
+function replyMessage(msg) {
+  let now = moment().add(7, "hours");
+  let date = now.format("M/D/YYYY");
+  let meals = {};
+  let menu = db[date];
+
+  let breakfast = [...menu.Breakfast];
+  let lunch = [...menu.Lunch];
+  let dinner = [...menu.Dinner];
+
+  if (date in db) {
+    if (
+      msg.toLowerCase().includes("food") ||
+      msg.includes("อาหาร") ||
+      msg.toLowerCase().includes("menu") ||
+      msg.includes("เมนู") ||
+      msg.toLowerCase().includes("hungry") ||
+      msg.includes("หิว")
+    ) {
+      meals["breakfast"] = breakfast;
+      meals["lunch"] = lunch;
+      meals["dinner"] = dinner;
+    } else if (msg.toLowerCase().includes("breakfast")) {
+      meals["breakfast"] = breakfast;
+    } else if (msg.toLowerCase().includes("lunch")) {
+      meals["lunch"] = lunch;
+    } else if (msg.toLowerCase().includes("dinner")) {
+      meals["dinner"] = dinner;
+    } else {
+      return textMessage("🙄");
+    }
+    return flexMessage(date, meals);
+  } else {
+    return textMessage("Try again later~");
+  }
+}
 const lineClient = new line.Client(config);
 
 function handleEvent(event) {
@@ -179,16 +293,17 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
   let msg = event.message.text;
-  let replymsg = replyMessage(msg);
+  let replymsg = replyText(msg);
   let userId = event.source.userId;
   lineClient.getProfile(userId).then((profile) => {
-    logger.info(profile.displayName + "says " + msg);
+    logger.info(profile.displayName + " says " + msg);
   });
 
-  return lineClient.replyMessage(event.replyToken, {
-    type: "text",
-    text: replymsg,
-  });
+  return lineClient.replyMessage(event.replyToken, replyMessage(msg));
 }
 
 app.listen(port);
+
+// setTimeout(() => {
+//   console.log(replyMessage("f"));
+// }, 4000);
