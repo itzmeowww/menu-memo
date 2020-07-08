@@ -137,8 +137,6 @@ function handleEvent(event) {
   return lineClient.replyMessage(event.replyToken, replyMessage(msg));
 }
 
-app.use(express.json());
-
 app.get("/", (req, res) => {
   res.send("HI");
   console.log(req.msg);
@@ -152,11 +150,10 @@ app.post("/webhook", line.middleware(config), (req, res) => {
     });
 });
 app.post("/test", (req, res) => {
-  let cmd = req.body.command;
-  console.dir(replyMessage(cmd));
+  let cmd = req.params;
+  // console.dir(replyMessage(cmd));
   res.status(200).end();
 });
-
 
 app.listen(port);
 
@@ -171,4 +168,3 @@ app.listen(port);
 //   };
 //   console.log(isInStr("หิว", cmd["nextMeal"]));
 // }, 4000);
-
