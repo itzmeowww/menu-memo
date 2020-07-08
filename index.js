@@ -129,7 +129,7 @@ app.post("/webhook", line.middleware(config), (req, res) => {
 function isInStr(msg, msgList) {
   let have = false;
   msgList.forEach((x) => {
-    console.log(msg.toLowerCase() + " " + x);
+    // console.log(msg.toLowerCase() + " " + x);
     if (msg.toLowerCase().includes(x)) {
       have = true;
     }
