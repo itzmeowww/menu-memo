@@ -180,7 +180,11 @@ function handleEvent(event) {
   }
   let msg = event.message.text;
   let replymsg = replyMessage(msg);
-  logger.info(msg + " -> " + replymsg);
+  let userId = event.source.userId;
+  lineClient.getProfile(userId).then((profile) => {
+    logger.info(profile.displayName + "says " + msg);
+  });
+
   return lineClient.replyMessage(event.replyToken, {
     type: "text",
     text: replymsg,
