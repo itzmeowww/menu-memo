@@ -76,7 +76,9 @@ function replyMessage(msg) {
   let fullCmdList = [];
   for (key in cmd) {
     if (cmd.hasOwnProperty(key)) {
-      fullCmdList.push(cmd);
+      cmd[key].forEach((x) => {
+        fullCmdList.push(x);
+      });
     }
   }
 
