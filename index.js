@@ -18,6 +18,7 @@ require("dotenv").config();
 const { gsrun, client } = require("./sheet");
 
 const { flexMessage, textMessage, flexHelp } = require("./style");
+const { randList } = require("./utils");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -83,6 +84,16 @@ function replyMessage(msg) {
     "หิว",
     "M/D/YYYY",
     "Guess ><",
+  ];
+
+  let noCmdList = [
+    "🙄",
+    "Ask me help :)",
+    "🤨",
+    "😪",
+    "จริงป่าววว",
+    "🍉",
+    "🥺",
   ];
 
   if (isInStr(msg, cmd["nextMeal"])) {
@@ -160,7 +171,7 @@ function replyMessage(msg) {
     } else if (isInStr(msg, cmd["help"])) {
       return flexHelp(cmdList);
     } else {
-      return textMessage("🙄");
+      return textMessage(randList(noCmdList));
     }
     return flexMessage(date2 + dateOpt, meals);
   } else {
