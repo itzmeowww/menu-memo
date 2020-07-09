@@ -19,6 +19,7 @@ const { gsrun, client } = require("./sheet");
 
 const { flexMessage, textMessage, flexHelp } = require("./style");
 const { randList } = require("./utils");
+const { text } = require("body-parser");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -71,6 +72,7 @@ function replyMessage(msg) {
     nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
     help: ["help", "cmd", "ช่วย"],
     tomorrow: ["tomorrow", "tmr", "พรุ่งนี้"],
+    bug: ["bug", "comment", "แนะนำ", "บัค"],
   };
 
   let fullCmdList = [];
@@ -104,6 +106,12 @@ function replyMessage(msg) {
     "🍉",
     "🥺",
   ];
+
+  if (isInStr(msg, cmd["bug"])) {
+    return textMessage(
+      "Report bugs or Comments : https://forms.gle/xG1S6Xn28J5onKfG6"
+    );
+  }
 
   if (isInStr(msg, cmd["nextMeal"])) {
     if (hours >= 19) {
