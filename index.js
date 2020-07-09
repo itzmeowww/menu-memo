@@ -62,6 +62,7 @@ function isInStr(msg, msgList) {
 //TODO : connect to db
 function replyMessage(msg) {
   let now = moment().add(7, "hours");
+  now.subtract(now.hours(), "hours");
   let hours = now.hour();
   let dateOpt = "";
   let cmd = {
@@ -70,7 +71,7 @@ function replyMessage(msg) {
     lunch: ["lunch", "midday", "เที่ยง"],
     dinner: ["dinner", "เย็น"],
     nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
-    help: ["help", "cmd", "ช่วย"],
+    help: ["help", "cmd", "ช่วย", "ใช้", "ยังไง", "how", "use"],
     tomorrow: ["tomorrow", "tmr", "พรุ่งนี้"],
     bug: ["bug", "comment", "แนะนำ", "บัค"],
   };
@@ -96,7 +97,7 @@ function replyMessage(msg) {
     "M/D/YYYY",
     "bug",
     "แนะนำ",
-    "((Some Easter eggs))",
+    "((Some Easter Eggs))",
   ];
 
   let noCmdList = [
@@ -161,7 +162,8 @@ function replyMessage(msg) {
 
   if (msg in db) {
     date = msg;
-    date2 = moment(date, "MM/DD/YYYY").format("D MMM YYYY");
+    now = moment(date, "MM/DD/YYYY");
+    date2 = now.format("D MMM YYYY");
     msg = "menu";
   } else {
     date = now.format("M/D/YYYY");
@@ -195,7 +197,9 @@ function replyMessage(msg) {
       if (chance > 5) return textMessage(randList(noCmdList));
       else return textMessage("Try : " + randList(fullCmdList));
     }
-    return flexMessage(date2 + dateOpt, meals);
+
+    let theDay = now.format("ddd");
+    return flexMessage("[" + theDay + "] " + date2 + dateOpt, meals);
   } else {
     return textMessage("Try again later~");
   }

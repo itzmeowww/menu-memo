@@ -113,7 +113,7 @@ function flexHelp(cmdList) {
     altText: "Menu Memo sent you help!",
     contents: {
       type: "bubble",
-      header: flexHeader("Help"),
+      header: flexHeader("Commands"),
       body: flexHelpBody(cmdList),
     },
     size: "nano",
