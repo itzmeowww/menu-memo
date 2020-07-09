@@ -65,7 +65,7 @@ function replyMessage(msg) {
   let hours = now.hour();
   let dateOpt = "";
   let cmd = {
-    menu: ["food", "menu", "เมนู", "อาหาร", "meal", "มื้อ",​"today", "วันนี้" ],
+    menu: ["food", "menu", "เมนู", "อาหาร", "meal", "มื้อ", "today", "วันนี้"],
     breakfast: ["breakfast", "bf", "morning", "เช้า"],
     lunch: ["lunch", "midday", "เที่ยง"],
     dinner: ["dinner", "เย็น"],
@@ -127,8 +127,7 @@ function replyMessage(msg) {
     } else {
       msg = "breakfast";
     }
-  }
-  else if (isInStr(msg, cmd["breakfast"])) {
+  } else if (isInStr(msg, cmd["breakfast"])) {
     if (hours >= 9) {
       now = now.add(1, "days");
       dateOpt = " (Tomorrow)";
