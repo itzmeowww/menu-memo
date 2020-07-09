@@ -45,10 +45,8 @@ client.authorize(async (err, res) => {
 
 // ! ISSUE : db is not valid at this point, but should be
 
-//TODO help : show commands
-//TODO time : if the meal end show next meal
-//TODO date :
-//TODO tmr : tomorrow's meal
+//TODO : ... :give user random cmd
+
 function isInStr(msg, msgList) {
   let have = false;
   msgList.forEach((x) => {
@@ -59,7 +57,8 @@ function isInStr(msg, msgList) {
   });
   return have;
 }
-
+//TODO : Move some declaration from the function
+//TODO : connect to db
 function replyMessage(msg) {
   let now = moment().add(7, "hours");
   let hours = now.hour();
@@ -74,6 +73,13 @@ function replyMessage(msg) {
     tomorrow: ["tomorrow", "tmr", "พรุ่งนี้"],
   };
 
+  let fullCmdList = [];
+  for (key in cmd) {
+    if (cmd.hasOwnProperty(key)) {
+      fullCmdList.push(cmd);
+    }
+  }
+
   let cmdList = [
     "food",
     "menu",
@@ -83,7 +89,7 @@ function replyMessage(msg) {
     "tomorrow",
     "หิว",
     "M/D/YYYY",
-    "Guess ><",
+    "Try to guess ><",
   ];
 
   let noCmdList = [
@@ -171,7 +177,9 @@ function replyMessage(msg) {
     } else if (isInStr(msg, cmd["help"])) {
       return flexHelp(cmdList);
     } else {
-      return textMessage(randList(noCmdList));
+      let chance = Math.random() * 10;
+      if (chance > 5) return textMessage(randList(noCmdList));
+      else return textMessage("Try : ", randList(fullCmdList));
     }
     return flexMessage(date2 + dateOpt, meals);
   } else {
