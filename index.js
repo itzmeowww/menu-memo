@@ -96,7 +96,7 @@ function replyMessage(msg) {
     "M/D/YYYY",
     "bug",
     "แนะนำ",
-    "Try to guess ><",
+    "((Some Easter eggs))",
   ];
 
   let noCmdList = [
@@ -107,6 +107,8 @@ function replyMessage(msg) {
     "จริงป่าววว",
     "🍉",
     "🥺",
+    "เปนงง",
+    "ม่ายเข้าจายย",
   ];
 
   if (isInStr(msg, cmd["bug"])) {
@@ -148,6 +150,7 @@ function replyMessage(msg) {
       dateOpt = " (Tomorrow)";
     }
   }
+
   if (isInStr(msg, cmd["tomorrow"])) {
     now = now.add(1, "days");
     dateOpt = " (Tomorrow)";
