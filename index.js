@@ -81,6 +81,7 @@ function replyMessage(msg) {
       });
     }
   }
+  console.log(fullCmdList);
 
   let cmdList = [
     "food",
@@ -181,7 +182,7 @@ function replyMessage(msg) {
     } else {
       let chance = Math.random() * 10;
       if (chance > 5) return textMessage(randList(noCmdList));
-      else return textMessage("Try : ", randList(fullCmdList));
+      else return textMessage("Try : " + randList(fullCmdList));
     }
     return flexMessage(date2 + dateOpt, meals);
   } else {
