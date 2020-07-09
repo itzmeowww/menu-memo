@@ -128,8 +128,7 @@ function replyMessage(msg) {
       msg = "breakfast";
     }
   }
-
-  if (isInStr(msg, cmd["breakfast"])) {
+  else if (isInStr(msg, cmd["breakfast"])) {
     if (hours >= 9) {
       now = now.add(1, "days");
       dateOpt = " (Tomorrow)";
