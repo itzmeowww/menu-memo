@@ -81,8 +81,8 @@ function replyMessage(msg) {
     "dinner",
     "tomorrow",
     "หิว",
-    "???",
     "M/D/YYYY",
+    "Guess ><",
   ];
 
   if (isInStr(msg, cmd["nextMeal"])) {
