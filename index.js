@@ -94,6 +94,8 @@ function replyMessage(msg) {
     "tomorrow",
     "หิว",
     "M/D/YYYY",
+    "bug",
+    "แนะนำ",
     "Try to guess ><",
   ];
 
