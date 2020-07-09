@@ -225,5 +225,11 @@ app.get("/test/:cmd", (req, res) => {
   res.json(replyMessage(cmd));
   res.status(200).end();
 });
+app.get("/api/:date", (req, res) => {
+  let date = req.params.date.replace("-", "/").replace("-", "/");
+  if (db[date] === undefined) res.json({ status: "Notfound" });
+  else res.json(db[date]);
+  res.status(200).end();
+});
 
 app.listen(port);
