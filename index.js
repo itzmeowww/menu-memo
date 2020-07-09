@@ -65,7 +65,7 @@ function replyMessage(msg) {
   let hours = now.hour();
   let dateOpt = "";
   let cmd = {
-    menu: ["food", "menu", "เมนู", "อาหาร", "meal", "มื้อ"],
+    menu: ["food", "menu", "เมนู", "อาหาร", "meal", "มื้อ",​"today", "วันนี้" ],
     breakfast: ["breakfast", "bf", "morning", "เช้า"],
     lunch: ["lunch", "midday", "เที่ยง"],
     dinner: ["dinner", "เย็น"],
