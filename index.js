@@ -81,7 +81,7 @@ function replyMessage(msg) {
       });
     }
   }
-  console.log(fullCmdList);
+  // console.log(fullCmdList);
 
   let cmdList = [
     "food",
