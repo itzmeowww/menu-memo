@@ -4,7 +4,7 @@ const { randList, isInStr } = require("./utils");
 
 function replyMessage(msg, db) {
   let now = moment().add(7, "hours");
-  now.subtract(now.hours(), "hours");
+
   let hours = now.hour();
   let dateOpt = "";
   let cmd = {
