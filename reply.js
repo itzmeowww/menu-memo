@@ -158,9 +158,9 @@ function replyMessage(msg, db) {
     let theDay = now.format("ddd");
     let msgTitle = "[" + theDay + "] " + date2 + dateOpt;
     let showMenu = "";
-    for (key in meals) {
-      showMenu += key + ", ";
-    }
+    showMenu += Object.keys(meals).join(",");
+
+    msgTitle += " " + showMenu;
     return {
       desc: msgTitle,
       reply: flexMessage(msgTitle, meals),
