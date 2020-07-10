@@ -160,9 +160,8 @@ function replyMessage(msg, db) {
     let showMenu = "";
     showMenu += Object.keys(meals).join(",");
 
-    msgTitle += " " + showMenu;
     return {
-      desc: msgTitle,
+      desc: msgTitle + " " + showMenu,
       reply: flexMessage(msgTitle, meals),
     };
   } else {
