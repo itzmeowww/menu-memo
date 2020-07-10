@@ -129,13 +129,7 @@ function textMessage(msg) {
 }
 
 module.exports = {
-  flexHeader,
-  flexMeal,
-  flexMenu,
-  flexSeparator,
-  flexBody,
   flexMessage,
   textMessage,
-  flexHelpBody,
   flexHelp,
 };

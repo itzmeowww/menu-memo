@@ -57,21 +57,20 @@ const bug = () => {
   );
 };
 
-let cmdList = [
-  "food",
-  "menu",
-  "breakfast",
-  "lunch",
-  "dinner",
-  "tomorrow",
-  "หิว",
-  "M/D/YYYY",
-  "bug",
-  "แนะนำ",
-  "((Some Easter Eggs))",
-];
-
-const help = () => flexHelp(cmdList);
+const help = () =>
+  flexHelp([
+    "food",
+    "menu",
+    "breakfast",
+    "lunch",
+    "dinner",
+    "tomorrow",
+    "หิว",
+    "M/D/YYYY",
+    "bug",
+    "แนะนำ",
+    "((Some Easter Eggs))",
+  ]);
 
 let cmdOption = {
   menu: ["food", "menu", "เมนู", "อาหาร", "meal", "มื้อ", "today", "วันนี้"],
@@ -95,18 +94,6 @@ let cmdMap = {
   nextMeal,
 };
 
-let noCmdList = [
-  "🙄",
-  "Ask me help :)",
-  "🤨",
-  "😪",
-  "จริงป่าววว",
-  "🍉",
-  "🥺",
-  "เปนงง",
-  "ม่ายเข้าจายย",
-];
-
 let fullCmdList = [];
 for (key in cmdOption) {
   if (cmdOption.hasOwnProperty(key)) {
@@ -127,7 +114,20 @@ const main = (msg) => {
     return menu(moment(date, "MM/DD/YYYY"));
   }
   let chance = Math.random() * 10;
-  if (chance > 3) return textMessage(randList(noCmdList));
+  if (chance > 3)
+    return textMessage(
+      randList([
+        "🙄",
+        "Ask me help :)",
+        "🤨",
+        "😪",
+        "จริงป่าววว",
+        "🍉",
+        "🥺",
+        "เปนงง",
+        "ม่ายเข้าจายย",
+      ])
+    );
   return textMessage("Try : " + randList(fullCmdList));
 };
 
