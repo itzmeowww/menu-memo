@@ -3,6 +3,7 @@ const { flexMessage, textMessage, flexHelp } = require("./style");
 const { randList, isInStr } = require("./utils");
 
 function replyMessage(msg, db) {
+  let ret = {};
   let now = moment().add(7, "hours");
 
   let hours = now.hour();
@@ -55,9 +56,12 @@ function replyMessage(msg, db) {
   ];
 
   if (isInStr(msg, cmd["bug"])) {
-    return textMessage(
-      "Report bugs or Comments : https://forms.gle/xG1S6Xn28J5onKfG6"
-    );
+    return {
+      desc: "Report bugs or Comments : https://forms.gle/xG1S6Xn28J5onKfG6",
+      reply: textMessage(
+        "Report bugs or Comments : https://forms.gle/xG1S6Xn28J5onKfG6"
+      ),
+    };
   }
 
   if (isInStr(msg, cmd["nextMeal"])) {
@@ -133,17 +137,36 @@ function replyMessage(msg, db) {
     } else if (isInStr(msg, cmd["dinner"])) {
       meals["dinner"] = dinner;
     } else if (isInStr(msg, cmd["help"])) {
-      return flexHelp(cmdList);
+      return {
+        desc: "flexHelp",
+        reply: flexHelp(cmdList),
+      };
     } else {
       let chance = Math.random() * 10;
-      if (chance > 3) return textMessage(randList(noCmdList));
-      else return textMessage("Try : " + randList(fullCmdList));
+      if (chance > 3)
+        return {
+          desc: "noCmdList",
+          reply: textMessage(randList(noCmdList)),
+        };
+      else
+        return {
+          desc: "fullCmdList",
+          reply: textMessage("Try : " + randList(fullCmdList)),
+        };
     }
 
     let theDay = now.format("ddd");
-    return flexMessage("[" + theDay + "] " + date2 + dateOpt, meals);
+    let msgTitle = "[" + theDay + "] " + date2 + dateOpt;
+    let showMenu = "";
+    for (key in meals) {
+      showMenu += key + ", ";
+    }
+    return {
+      desc: msgTitle,
+      reply: flexMessage(msgTitle, meals),
+    };
   } else {
-    return textMessage("Try again later~");
+    return { desc: "Try again later~", reply: textMessage("Try again later~") };
   }
 }
 

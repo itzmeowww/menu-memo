@@ -47,11 +47,13 @@ function handleEvent(event) {
   let msg = event.message.text;
 
   let userId = event.source.userId;
+  let theReply = replyMessage(msg, db);
   lineClient.getProfile(userId).then((profile) => {
-    logger.info(profile.displayName + " says " + msg);
+    logger.info(profile.displayName + " says " + msg + " :" + theReply.desc);
+    // console.log(profile.displayName + " says " + msg + " :" + theReply.desc);
   });
 
-  return lineClient.replyMessage(event.replyToken, replyMessage(msg, db));
+  return lineClient.replyMessage(event.replyToken, theReply.reply);
 }
 
 app.get("/", (req, res) => {
@@ -69,8 +71,8 @@ app.post("/webhook", line.middleware(config), (req, res) => {
 app.get("/test/:cmd", (req, res) => {
   let cmd = req.params.cmd;
   if (!cmd) res.status(500).end();
-  console.dir(replyMessage(cmd, db));
-  res.json(replyMessage(cmd, db));
+  // console.dir(replyMessage(cmd, db).reply);
+  res.json(replyMessage(cmd, db).reply);
   res.status(200).end();
 });
 app.get("/api/:date", (req, res) => {
