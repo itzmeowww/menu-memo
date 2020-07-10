@@ -136,7 +136,7 @@ function replyMessage(msg, db) {
       return flexHelp(cmdList);
     } else {
       let chance = Math.random() * 10;
-      if (chance > 5) return textMessage(randList(noCmdList));
+      if (chance > 3) return textMessage(randList(noCmdList));
       else return textMessage("Try : " + randList(fullCmdList));
     }
 
