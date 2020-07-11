@@ -13,7 +13,7 @@ function replyMessage(msg, db) {
     breakfast: ["breakfast", "bf", "morning", "เช้า"],
     lunch: ["lunch", "midday", "เที่ยง"],
     dinner: ["dinner", "เย็น"],
-    nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
+    nextMeal: ["หิว", "hungry", "ต่อไป"],
     help: ["help", "cmd", "ช่วย", "ใช้", "ยังไง", "how", "use"],
     tomorrow: ["tomorrow", "tmr", "พรุ่งนี้"],
     bug: ["bug", "comment", "แนะนำ", "บัค"],
