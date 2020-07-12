@@ -10,21 +10,21 @@ import "./arrayRandom";
 // Used to split by first whitespace
 const firstWhitespaceSplitRegex = /^(\S*)\s*(.*)/m;
 
-export interface ICommandHandler {
+export interface IMessageHandler {
   reply(parameters: string): line.Message;
 }
 
 /**
  * Route message to appropriate handler
  */
-export class MessageRouter implements ICommandHandler {
-  private readonly routes: Record<string, ICommandHandler>;
+export class MessageRouter implements IMessageHandler {
+  private readonly routes: Record<string, IMessageHandler>;
   private readonly aliases: Record<string, Array<string>>;
-  private readonly fallthroughHandler: ICommandHandler;
+  private readonly fallthroughHandler: IMessageHandler;
 
-  constructor(routes: Record<string, ICommandHandler>,
+  constructor(routes: Record<string, IMessageHandler>,
               aliases: Record<string, Array<string>>,
-              defaultHandler: ICommandHandler = new InvalidCommand()) {
+              defaultHandler: IMessageHandler = new InvalidCommand()) {
     this.routes = routes;
     this.aliases = aliases;
     this.fallthroughHandler = defaultHandler;
@@ -56,7 +56,7 @@ export class MessageRouter implements ICommandHandler {
 /**
  * Default handler for invalid command
  */
-export class InvalidCommand implements ICommandHandler {
+export class InvalidCommand implements IMessageHandler {
   private readonly replyMessages = [
     "🙄",
     "🤨",
