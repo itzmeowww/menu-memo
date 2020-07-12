@@ -12,6 +12,7 @@ function isInStr(msg, msgList) {
   });
   return have;
 }
+
 module.exports = {
   randList,
   isInStr,
