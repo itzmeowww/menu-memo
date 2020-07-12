@@ -5,6 +5,7 @@
 import { flexMessage, textMessage } from "./style.js";
 import * as moment from "moment";
 import * as line from '@line/bot-sdk';
+import "./arrayRandom";
 
 // Used to split by first whitespace
 const firstWhitespaceSplitRegex = /^(\S*)\s*(.*)/m;
