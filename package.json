@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "node ./dev/index.js",
     "test": "jest",
-    "start": "node ./index.js"
+    "start": "npm run build && node build/index.js",
+    "start-no-build": "node build/index.js",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -32,7 +34,10 @@
   },
   "devDependencies": {
     "@jest/globals": "^26.1.0",
+    "@types/jest": "^26.0.4",
     "jest": "^26.1.0",
-    "mockdate": "^3.0.2"
+    "mockdate": "^3.0.2",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.6"
   }
 }
