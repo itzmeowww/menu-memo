@@ -65,7 +65,7 @@ function flexBody(meals) {
       contents.push(flexSeparator());
     }
   });
-  if (contents[contents.length - 1].type == "separator") {
+  if (contents.length > 0 && contents[contents.length - 1].type == "separator") {
     contents.pop();
   }
 
