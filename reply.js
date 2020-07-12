@@ -141,9 +141,24 @@ function replyMessage(msg, db) {
         desc: "flexHelp",
         reply: flexHelp(cmdList),
       };
+    } else if (isInStr(msg, ["วินน่ารัก"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage("อันนี้จริงที่สุด"),
+      };
+    } else if (isInStr(msg, ["itzmeowww"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage("my99n!"),
+      };
+    } else if (isInStr(msg, ["primpriss"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage("จะมอบความรักกก"),
+      };
     } else {
       let chance = Math.random() * 10;
-      if (chance > 3)
+      if (true)
         return {
           desc: "noCmdList",
           reply: textMessage(randList(noCmdList)),
