@@ -13,7 +13,7 @@ function replyMessage(msg, db) {
     breakfast: ["breakfast", "bf", "morning", "เช้า"],
     lunch: ["lunch", "midday", "เที่ยง"],
     dinner: ["dinner", "เย็น"],
-    nextMeal: ["หิว", "hungry", "ข้าว", "ต่อไป"],
+    nextMeal: ["หิว", "hungry", "ต่อไป"],
     help: ["help", "cmd", "ช่วย", "ใช้", "ยังไง", "how", "use"],
     tomorrow: ["tomorrow", "tmr", "พรุ่งนี้"],
     bug: ["bug", "comment", "แนะนำ", "บัค"],
@@ -141,9 +141,24 @@ function replyMessage(msg, db) {
         desc: "flexHelp",
         reply: flexHelp(cmdList),
       };
+    } else if (isInStr(msg, ["วินน่ารัก"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage("อันนี้จริงที่สุด"),
+      };
+    } else if (isInStr(msg, ["itzmeowww"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage("my99n!"),
+      };
+    } else if (isInStr(msg, ["primpriss"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage("จะมอบความรักกก"),
+      };
     } else {
       let chance = Math.random() * 10;
-      if (chance > 3)
+      if (true)
         return {
           desc: "noCmdList",
           reply: textMessage(randList(noCmdList)),
@@ -160,9 +175,8 @@ function replyMessage(msg, db) {
     let showMenu = "";
     showMenu += Object.keys(meals).join(",");
 
-    msgTitle += " " + showMenu;
     return {
-      desc: msgTitle,
+      desc: msgTitle + " " + showMenu,
       reply: flexMessage(msgTitle, meals),
     };
   } else {
