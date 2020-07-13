@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "node ./dev/index.js",
     "test": "jest",
-    "start": "npm run build && node build/index.js",
+    "start": "node build/index.js",
     "start-no-build": "node build/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
