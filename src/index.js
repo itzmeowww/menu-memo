@@ -31,24 +31,25 @@ const config = {
 };
 
 let db = {};
+let messageRouter;
+//! Help me with promise
 client.authorize(async (err, res) => {
   if (err) {
     console.log(err);
   } else {
     db = await gsrun(client);
     console.log("db listed");
+    messageRouter = new router.MessageRouter(
+      {
+        week: new router.LegacyWeekOverview(db),
+      },
+      {
+        week: ["week", "wk", "summary", "sum", "overview"],
+      },
+      new router.LegacyPassthru(db)
+    );
   }
 });
-
-const messageRouter = new router.MessageRouter(
-  {
-    "week": new router.LegacyWeekOverview(db),
-  },
-  {
-    "week": ["week", "wk", "summary", "sum", "overview"]
-  },
-  new router.LegacyPassthru(db)
-);
 
 const lineClient = new line.Client(config);
 
