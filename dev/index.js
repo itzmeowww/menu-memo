@@ -1,7 +1,7 @@
 const line = require("@line/bot-sdk");
 const express = require("express");
 require("dotenv").config();
-const replyMessage = require("./reply");
+const replyMessage = require("./router");
 const { query } = require("./sheet");
 
 const app = express();

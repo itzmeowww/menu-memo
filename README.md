@@ -1,1 +1,3 @@
 # foodfetcherbot
+
+`npm start`
