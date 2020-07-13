@@ -1,13 +1,17 @@
-import * as mockdate from "mockdate";
-import * as moment from "moment";
-import { MessageRouter } from "../src/router";
+import { MessageRouter, StaticTextReplyCommand } from "../src/router";
 
 describe("MessageRouter", () => {
   let messageRouter: MessageRouter;
 
   beforeAll(() => {
-    let routes = {};
-    let aliases = {};
+    let routes = {
+      "staticA": new StaticTextReplyCommand("AAAAA"),
+      "staticB": new StaticTextReplyCommand("BBBBB")
+    };
+    let aliases = {
+      "staticA": ["A", "aliasA"],
+      "staticB": ["B", "aliasB"]
+    };
 
     messageRouter = new MessageRouter(routes, aliases);
   });
@@ -21,8 +25,17 @@ describe("MessageRouter", () => {
 
   test("invalid command", () => {
     let reply = messageRouter.reply("¯\\_(ツ)_/¯");
-    let replyJSON = JSON.stringify(reply);
-    expect(reply.type).toEqual("text");
-    expect(replyJSON).toEqual(expect.stringContaining("help"));
+    expect(reply.type == "text" && reply.text.includes("help")).toBeTruthy();
   });
-})
+
+  test("basic command", () => {
+    let reply = messageRouter.reply("A");
+    expect(reply.type === "text" && reply.text === "AAAAA").toBeTruthy();
+
+    reply = messageRouter.reply("   B      ");
+    expect(reply.type === "text" && reply.text === "BBBBB").toBeTruthy();
+
+    reply = messageRouter.reply("aliasB   \n parameter");
+    expect(reply.type === "text" && reply.text === "BBBBB").toBeTruthy();
+  });
+});
