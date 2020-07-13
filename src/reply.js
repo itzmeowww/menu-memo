@@ -116,14 +116,14 @@ function replyMessage(msg, db) {
     date2 = now.format("D MMM YYYY");
   }
 
-  let menu = db[date];
-  let meals = {};
-
-  let breakfast = [...menu.Breakfast];
-  let lunch = [...menu.Lunch];
-  let dinner = [...menu.Dinner];
-
   if (date in db) {
+    let menu = db[date];
+    let meals = {};
+
+    let breakfast = [...menu.Breakfast];
+    let lunch = [...menu.Lunch];
+    let dinner = [...menu.Dinner];
+
     if (isInStr(msg, cmd["menu"])) {
       meals = {
         breakfast,

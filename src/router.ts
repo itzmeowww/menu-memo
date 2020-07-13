@@ -230,6 +230,13 @@ export class LegacyWeekOverview implements IMessageHandler {
       date.add(1, "d");
     }
 
+    if(menu.length === 0){
+      return {
+        type: "text",
+        text: "Unable to get your menu. Please try again later."
+      }
+    }
+
     return {
       type: "flex",
       altText: "Menu Memo sent you this week's menu!",
