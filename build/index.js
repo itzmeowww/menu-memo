@@ -26,6 +26,7 @@ const config = {
 };
 let db = {};
 let messageRouter;
+//! Help me with promise
 client.authorize(async (err, res) => {
     if (err) {
         console.log(err);
