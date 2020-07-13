@@ -40,7 +40,7 @@ function replyMessage(msg, db) {
     "M/D/YYYY",
     "bug",
     "แนะนำ",
-    "week"
+    "week",
     "((Some Easter Eggs))",
   ];
 
@@ -157,7 +157,7 @@ function replyMessage(msg, db) {
         desc: "easter egg",
         reply: textMessage("จะมอบความรักกก"),
       };
-    }else if (isInStr(msg, ["mimimie"])) {
+    } else if (isInStr(msg, ["mimimie"])) {
       return {
         desc: "easter egg",
         reply: textMessage("คนนี้วาดรูปให้ครับ วาดสวยสุด"),
