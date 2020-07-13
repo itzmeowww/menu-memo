@@ -1,6 +1,6 @@
 const moment = require("moment");
 const { flexMessage, textMessage, flexHelp } = require("./style");
-const { randList, isInStr } = require("./arrayRandom");
+const { randList, isInStr } = require("./utils");
 
 function replyMessage(msg, db) {
   let ret = {};
