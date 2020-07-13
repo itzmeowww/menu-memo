@@ -33,7 +33,6 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@jest/globals": "^26.1.0",
     "@types/jest": "^26.0.4",
     "jest": "^26.1.0",
     "mockdate": "^3.0.2",
