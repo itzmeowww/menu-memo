@@ -28,13 +28,15 @@ export class MessageRouter implements IMessageHandler {
    * @param aliases map of command name to the uer input which invoke said command
    * @param fallthroughHandler handle messages with no command, parameters are directly forwarded with no processing
    */
-  constructor(routes: Record<string, IMessageHandler>,
-              aliases: Record<string, Array<string>>,
-              fallthroughHandler: IMessageHandler = new InvalidCommand()) {
+  constructor(
+    routes: Record<string, IMessageHandler>,
+    aliases: Record<string, Array<string>>,
+    fallthroughHandler: IMessageHandler = new InvalidCommand()
+  ) {
     this.routes = routes;
     this.aliases = {};
     for (const [key, entries] of Object.entries(aliases)) {
-      this.aliases[key] = entries.map(i => i.toLowerCase().trim());
+      this.aliases[key] = entries.map((i) => i.toLowerCase().trim());
     }
     this.fallthroughHandler = fallthroughHandler;
   }
@@ -80,7 +82,7 @@ export class InvalidCommand implements IMessageHandler {
   reply(parameters: string): Message {
     return {
       type: "text",
-      text: `${this.replyMessages.pickRandom()}\nลองพิมพ์ "help" ดูสิ`
+      text: `${this.replyMessages.pickRandom()}\nลองพิมพ์ "help" ดูสิ`,
     };
   }
 }
@@ -98,7 +100,7 @@ export class StaticTextReplyCommand implements IMessageHandler {
   reply(parameters: string): Message {
     return {
       type: "text",
-      text: this.replyMessage
+      text: this.replyMessage,
     };
   }
 }
@@ -119,7 +121,11 @@ export class LegacyPassthru implements IMessageHandler {
   }
 }
 
-type LegacyMealFormat = { Breakfast: Array<string>, Lunch: Array<string>, Dinner: Array<string> };
+type LegacyMealFormat = {
+  Breakfast: Array<string>;
+  Lunch: Array<string>;
+  Dinner: Array<string>;
+};
 
 /**
  * Give a week overview
@@ -129,7 +135,7 @@ export class LegacyWeekOverview implements IMessageHandler {
   private db: Record<string, LegacyMealFormat>;
 
   constructor(forwardDatabase: any) {
-    this.db = forwardDatabase
+    this.db = forwardDatabase;
   }
 
   reply(parameters: string): Message {
@@ -160,10 +166,10 @@ export class LegacyWeekOverview implements IMessageHandler {
             contents: [
               {
                 type: "text",
-                text: date.format("dddd D/MM"),
+                text: date.format("ddd D MMM"),
                 align: "center",
                 weight: "bold",
-                size: "xl",
+                size: "md",
               },
             ],
           },
@@ -172,18 +178,23 @@ export class LegacyWeekOverview implements IMessageHandler {
             layout: "vertical",
             backgroundColor: "#e5edff",
             contents: [],
-          }
+          },
         };
 
         // Formatting for each meal
-        const formatMeal = (name: string, list: Array<string>): Array<FlexComponent> => {
-          let result: Array<FlexComponent> = [{
-            type: "text",
-            text: name,
-            align: "center",
-            weight: "bold",
-            margin: "md",
-          }];
+        const formatMeal = (
+          name: string,
+          list: Array<string>
+        ): Array<FlexComponent> => {
+          let result: Array<FlexComponent> = [
+            {
+              type: "text",
+              text: name,
+              align: "center",
+              weight: "bold",
+              margin: "md",
+            },
+          ];
 
           for (let item of list) {
             result.push({
@@ -201,7 +212,7 @@ export class LegacyWeekOverview implements IMessageHandler {
           });
 
           return result;
-        }
+        };
 
         // For each meal, check if it exists, format and push to current carousel element
         if (meal.Breakfast) {
@@ -211,15 +222,11 @@ export class LegacyWeekOverview implements IMessageHandler {
         }
 
         if (meal.Lunch) {
-          result.body?.contents.push(
-            ...formatMeal("Lunch", meal.Lunch)
-          );
+          result.body?.contents.push(...formatMeal("Lunch", meal.Lunch));
         }
 
         if (meal.Dinner) {
-          result.body?.contents.push(
-            ...formatMeal("Dinner", meal.Dinner)
-          );
+          result.body?.contents.push(...formatMeal("Dinner", meal.Dinner));
         }
 
         // push element to carousel
@@ -230,11 +237,11 @@ export class LegacyWeekOverview implements IMessageHandler {
       date.add(1, "d");
     }
 
-    if(menu.length === 0){
+    if (menu.length === 0) {
       return {
         type: "text",
-        text: "Unable to get your menu. Please try again later."
-      }
+        text: "Unable to get your menu. Please try again later.",
+      };
     }
 
     return {
@@ -243,7 +250,7 @@ export class LegacyWeekOverview implements IMessageHandler {
       contents: {
         type: "carousel",
         contents: menu,
-      }
+      },
     };
   }
 }

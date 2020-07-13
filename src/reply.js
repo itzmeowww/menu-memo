@@ -40,6 +40,7 @@ function replyMessage(msg, db) {
     "M/D/YYYY",
     "bug",
     "แนะนำ",
+    "week"
     "((Some Easter Eggs))",
   ];
 
@@ -149,12 +150,17 @@ function replyMessage(msg, db) {
     } else if (isInStr(msg, ["itzmeowww"])) {
       return {
         desc: "easter egg",
-        reply: textMessage("my99n!"),
+        reply: textMessage("ว้าวๆๆๆๆๆๆๆ"),
       };
     } else if (isInStr(msg, ["primpriss"])) {
       return {
         desc: "easter egg",
         reply: textMessage("จะมอบความรักกก"),
+      };
+    }else if (isInStr(msg, ["mimimie"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage("คนนี้วาดรูปให้ครับ วาดสวยสุด"),
       };
     } else {
       let chance = Math.random() * 10;
