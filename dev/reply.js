@@ -1,6 +1,5 @@
 const { flexMessage, textMessage } = require("./style");
 const { query } = require("./sheet");
-const { isInStr, randList } = require("./utils");
 const moment = require("moment");
 
 const getDate = () => moment().utcOffset(7);
@@ -103,32 +102,4 @@ for (key in cmdOption) {
   }
 }
 
-const main = (msg) => {
-  for (command in cmdMap) {
-    if (isInStr(msg, cmdOption[command])) {
-      console.log(command);
-      return cmdMap[command]();
-    }
-  }
-  if (query(msg) != undefined) {
-    return menu(moment(date, "MM/DD/YYYY"));
-  }
-  let chance = Math.random() * 10;
-  if (chance > 3)
-    return textMessage(
-      randList([
-        "🙄",
-        "Ask me help :)",
-        "🤨",
-        "😪",
-        "จริงป่าววว",
-        "🍉",
-        "🥺",
-        "เปนงง",
-        "ม่ายเข้าจายย",
-      ])
-    );
-  return textMessage("Try : " + randList(fullCmdList));
-};
-
-module.exports = main;
+module.exports = { cmdMap, cmdOption, query, menu, fullCmdList };
