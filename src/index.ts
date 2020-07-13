@@ -34,7 +34,7 @@ const lineConfig: line.Config = {
 const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
 
 (async () => {
-  let db: any;
+  let db: any = {};
 
   try {
     const credential: Credentials = await client.authorize();
