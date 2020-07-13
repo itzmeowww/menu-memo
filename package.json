@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "node ./dev/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./index.js"
+    "test": "jest",
+    "start": "npm run build && node build/index.js",
+    "start-no-build": "node build/index.js",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -29,5 +31,12 @@
     "path": "^0.12.7",
     "request": "^2.88.2",
     "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.4",
+    "jest": "^26.1.0",
+    "mockdate": "^3.0.2",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.6"
   }
 }

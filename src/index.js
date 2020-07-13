@@ -1,3 +1,5 @@
+import * as router from "./router";
+
 const winston = require("winston");
 const line = require("@line/bot-sdk");
 
@@ -38,6 +40,16 @@ client.authorize(async (err, res) => {
   }
 });
 
+const messageRouter = new router.MessageRouter(
+  {
+    "week": new router.LegacyWeekOverview(db),
+  },
+  {
+    "week": ["week", "wk", "summary", "sum", "overview"]
+  },
+  new router.LegacyPassthru(db)
+);
+
 const lineClient = new line.Client(config);
 
 function handleEvent(event) {
@@ -47,13 +59,12 @@ function handleEvent(event) {
   let msg = event.message.text;
 
   let userId = event.source.userId;
-  let theReply = replyMessage(msg, db);
+  let theReply = messageRouter.reply(msg);
   lineClient.getProfile(userId).then((profile) => {
-    logger.info(profile.displayName + " says " + msg + " :" + theReply.desc);
-    // console.log(profile.displayName + " says " + msg + " :" + theReply.desc);
+    logger.info(profile.displayName + " says " + msg);
   });
 
-  return lineClient.replyMessage(event.replyToken, theReply.reply);
+  return lineClient.replyMessage(event.replyToken, theReply);
 }
 
 app.get("/", (req, res) => {
@@ -72,7 +83,7 @@ app.get("/test/:cmd", (req, res) => {
   let cmd = req.params.cmd;
   if (!cmd) res.status(500).end();
   // console.dir(replyMessage(cmd, db).reply);
-  res.json(replyMessage(cmd, db).reply);
+  res.json(messageRouter.reply(cmd));
   res.status(200).end();
 });
 app.get("/api/:date", (req, res) => {

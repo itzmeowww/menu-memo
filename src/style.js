@@ -15,6 +15,7 @@ function flexHeader(txt) {
   };
   return ret;
 }
+
 function flexMeal(meal) {
   return {
     type: "text",
@@ -27,6 +28,7 @@ function flexMeal(meal) {
     offsetBottom: "15px",
   };
 }
+
 function flexMenu(menu) {
   return {
     type: "text",
@@ -36,6 +38,7 @@ function flexMenu(menu) {
     offsetTop: "5px",
   };
 }
+
 function flexSeparator() {
   let ret = {
     type: "separator",
@@ -44,6 +47,7 @@ function flexSeparator() {
   };
   return ret;
 }
+
 function flexBody(meals) {
   let contents = [];
   let ret = {
@@ -61,7 +65,7 @@ function flexBody(meals) {
       contents.push(flexSeparator());
     }
   });
-  if (contents[contents.length - 1].type == "separator") {
+  if (contents.length > 0 && contents[contents.length - 1].type == "separator") {
     contents.pop();
   }
 
@@ -93,6 +97,7 @@ function flexMessage(date, meals) {
 
   return ret;
 }
+
 function flexHelpBody(cmdList) {
   let contents = [];
   let ret = {
@@ -120,6 +125,7 @@ function flexHelp(cmdList) {
   };
   return ret;
 }
+
 function textMessage(msg) {
   let ret = {
     type: "text",
