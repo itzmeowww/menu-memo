@@ -4,6 +4,7 @@ import * as winston from "winston";
 import * as express from "express";
 import { exit } from "process";
 import * as line from "@line/bot-sdk";
+import * as sched from "node-schedule";
 
 import * as oldCmd from "./oldCmd";
 
@@ -124,4 +125,8 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
   });
 
   app.listen(port);
+
+  sched.scheduleJob("0 0 23 * * *", () => {
+    lineClient.broadcast(messageRouter.reply("menu"));
+  });
 })();
