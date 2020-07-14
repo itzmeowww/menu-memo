@@ -2,7 +2,8 @@
  * Various router and handler for messages
  */
 
-import { flexMessage, textMessage } from "./style.js";
+// import { flexMessage, textMessage } from "./style.js";
+import { textMessage } from "./style";
 import * as moment from "moment";
 import "./arrayRandom";
 import { FlexBubble, FlexComponent, FlexMessage, Message } from "@line/bot-sdk";
@@ -80,10 +81,9 @@ export class InvalidCommand implements IMessageHandler {
   ];
 
   reply(parameters: string): Message {
-    return {
-      type: "text",
-      text: `${this.replyMessages.pickRandom()}\nลองพิมพ์ "help" ดูสิ`,
-    };
+    return textMessage(
+      `${this.replyMessages.pickRandom()}\nลองพิมพ์ "help" ดูสิ`
+    );
   }
 }
 
@@ -98,10 +98,7 @@ export class StaticTextReplyCommand implements IMessageHandler {
   }
 
   reply(parameters: string): Message {
-    return {
-      type: "text",
-      text: this.replyMessage,
-    };
+    return textMessage(this.replyMessage);
   }
 }
 
@@ -238,10 +235,7 @@ export class LegacyWeekOverview implements IMessageHandler {
     }
 
     if (menu.length === 0) {
-      return {
-        type: "text",
-        text: "Unable to get your menu. Please try again later.",
-      };
+      return textMessage("Unable to get your menu. Please try again later.");
     }
 
     return {
