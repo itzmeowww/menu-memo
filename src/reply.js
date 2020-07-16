@@ -161,15 +161,14 @@ function replyMessage(msg, db) {
         reply: textMessage("ว้าวๆๆๆๆๆๆๆ"),
       };
     } else if (isInStr(msg, ["วิน", "win", "thanasan", "ธนาสรรค์"])) {
+      let retList = [
+        "วินหรือป่าว ใช่วินหรือป่าว",
+        "ลองเล่นดูว : itzmeowww.me/pages/oreo",
+        "ลองเล่นดูว : itzmeowww.me/pages/snake",
+      ];
       return {
         desc: "easter egg",
-        reply: textMessage(() => {
-          return randList([
-            "วินหรือป่าว ใช่วินหรือป่าว",
-            "ลองเล่นดูว : itzmeowww.me/pages/oreo",
-            "ลองเล่นดูว : itzmeowww.me/pages/snake",
-          ]);
-        }),
+        reply: textMessage(randList(retList)),
       };
     } else if (isInStr(msg, ["primpriss"])) {
       return {
