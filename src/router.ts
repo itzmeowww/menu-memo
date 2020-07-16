@@ -77,6 +77,8 @@ export class InvalidCommand implements IMessageHandler {
     "🥺",
     "เปนงง",
     "ม่ายเข้าจายย",
+    "อิอิ",
+    "หิวแย้วว",
   ];
 
   reply(parameters: string): Message {

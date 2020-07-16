@@ -10,13 +10,14 @@ function replyMessage(msg, db) {
   let dateOpt = "";
   let cmd = {
     menu: ["food", "menu", "เมนู", "อาหาร", "meal", "มื้อ", "today", "วันนี้"],
-    breakfast: ["breakfast", "bf", "morning", "เช้า"],
+    breakfast: ["breakfast", "bf", "morning", "เช้า", "morn"],
     lunch: ["lunch", "midday", "เที่ยง"],
     dinner: ["dinner", "เย็น"],
     nextMeal: ["หิว", "hungry", "ต่อไป"],
     help: ["help", "cmd", "ช่วย", "ใช้", "ยังไง", "how", "use"],
-    tomorrow: ["tomorrow", "tmr", "พรุ่งนี้"],
+    tomorrow: ["tomorrow", "tmr", "พรุ่งนี้", "พน", "พ.น."],
     bug: ["bug", "comment", "แนะนำ", "บัค"],
+    yesterday: ["เมื่อวาน", "yesterday", "ytd"],
   };
 
   let fullCmdList = [];
@@ -54,6 +55,7 @@ function replyMessage(msg, db) {
     "🥺",
     "เปนงง",
     "ม่ายเข้าจายย",
+    "งงจริง ๆ",
   ];
 
   if (isInStr(msg, cmd["bug"])) {
@@ -104,6 +106,12 @@ function replyMessage(msg, db) {
     dateOpt = " (Tomorrow)";
     msg = "menu";
   }
+  if (isInStr(msg, cmd["yesterday"])) {
+    return {
+      desc: "yesterday",
+      reply: textMessage("ไม่บอกกกก อดีตมันผ่านไปแร้ว"),
+    };
+  }
 
   let date, date2;
 
@@ -151,6 +159,17 @@ function replyMessage(msg, db) {
       return {
         desc: "easter egg",
         reply: textMessage("ว้าวๆๆๆๆๆๆๆ"),
+      };
+    } else if (isInStr(msg, ["วิน", "win", "thanasan", "ธนาสรรค์"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage(() => {
+          return randList([
+            "วินหรือป่าว ใช่วินหรือป่าว",
+            "ลองเล่นดูว : itzmeowww.me/pages/oreo",
+            "ลองเล่นดูว : itzmeowww.me/pages/snake",
+          ]);
+        }),
       };
     } else if (isInStr(msg, ["primpriss"])) {
       return {
