@@ -74,7 +74,7 @@ function replyMessage(msg, db) {
       dateOpt = " (Tomorrow)";
     } else if (hours >= 13) {
       msg = "dinner";
-    } else if (hours >= 8) {
+    } else if (hours >= 9) {
       msg = "lunch";
     } else {
       msg = "breakfast";
