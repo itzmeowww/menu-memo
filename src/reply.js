@@ -175,7 +175,7 @@ function replyMessage(msg, db) {
         desc: "easter egg",
         reply: textMessage("จะมอบความรักกก"),
       };
-    } else if (isInStr(msg, ["mimimie"])) {
+    } else if (isInStr(msg, ["mimiemie"])) {
       return {
         desc: "easter egg",
         reply: textMessage("คนนี้วาดรูปให้ครับ วาดสวยสุด"),
