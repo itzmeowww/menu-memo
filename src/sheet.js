@@ -20,6 +20,7 @@ const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
 ]);
 
 async function gsrun(cl) {
+  console.log("Now in GSrun");
   let database = {};
   const gsapi = google.sheets({
     version: "v4",
@@ -29,38 +30,46 @@ async function gsrun(cl) {
   let sp = await gsapi.spreadsheets.get({
     spreadsheetId: "1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw",
   });
-
-  for (let i = 0; i < sp.data.sheets.length; i++) {
-    let x = sp.data.sheets[i];
+  // console.log("sp");
+  // console.log(sp.data.sheets);
+  // console.log(sp.data.sheets.length);
+  for (let ii = 0; ii < sp.data.sheets.length; ii++) {
+    // console.log(ii);
+    let xx = sp.data.sheets[ii];
     let date = "";
-    if (!x.properties.title.endsWith("19") && !x.properties.hidden) {
-      //   console.log(x.properties);
+    // console.log(xx.properties.title);
+    if (!xx.properties.title.endsWith("19") && !xx.properties.hidden) {
       let data = await gsapi.spreadsheets.values.get({
         spreadsheetId: "1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw",
-        range: x.properties.title,
+        range: xx.properties.title,
       });
-      data.data.values.forEach((x) => {
-        if (x.length != 0 && x[0] != "" && x[0] != date) {
-          date = x[0];
-          // console.log(date);
-        }
-        if (date != "") {
-          //   console.log(database);
-          //   console.log(x);
-          if (!(date in database))
-            database[date] = {
-              Breakfast: [],
-              Lunch: [],
-              Dinner: [],
-            };
+      if (data.data.values) {
+        console.log("Listed " + xx.properties.title);
+        data.data.values.forEach((x) => {
+          if (x.length != 0 && x[0] != "" && x[0] != date) {
+            date = x[0];
+            // console.log(date);
+          }
+          if (date != "") {
+            //   console.log(database);
+            //   console.log(x);
+            if (!(date in database))
+              database[date] = {
+                Breakfast: [],
+                Lunch: [],
+                Dinner: [],
+              };
 
-          if (x[1]) database[date]["Breakfast"].push(x[1]);
-          if (x[2]) database[date]["Lunch"].push(x[2]);
-          if (x[3]) database[date]["Dinner"].push(x[3]);
-        }
-      });
+            if (x[1]) database[date]["Breakfast"].push(x[1]);
+            if (x[2]) database[date]["Lunch"].push(x[2]);
+            if (x[3]) database[date]["Dinner"].push(x[3]);
+          }
+        });
+      }
     }
   }
+
+  // console.log("DB : ", database);
   return database;
 }
 
