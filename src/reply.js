@@ -31,12 +31,11 @@ function replyMessage(msg, db) {
   // console.log(fullCmdList);
 
   let cmdList = [
-    "food",
     "menu",
     "breakfast",
     "lunch",
     "dinner",
-    "tomorrow",
+    "tmr",
     "หิว",
     "M/D/YYYY",
     "bug",
@@ -55,7 +54,11 @@ function replyMessage(msg, db) {
     "🥺",
     "เปนงง",
     "ม่ายเข้าจายย",
-    "งงจริง ๆ",
+    "งงจริงๆ",
+    "เค้าไม่รักก็ควรพอ",
+    "ดงปราคช",
+    "melbourne นะ",
+    "ทุกคนรู้",
   ];
 
   if (isInStr(msg, cmd["bug"])) {
@@ -164,7 +167,7 @@ function replyMessage(msg, db) {
       let retList = [
         "วินหรือป่าว ใช่วินหรือป่าว",
         "ลองเล่นดูว : itzmeowww.me/pages/oreo",
-        "ลองเล่นดูว : itzmeowww.me/pages/snake",
+        "ลองเล่นดูวว : itzmeowww.me/pages/snake",
       ];
       return {
         desc: "easter egg",
@@ -178,7 +181,7 @@ function replyMessage(msg, db) {
     } else if (isInStr(msg, ["mimiemie"])) {
       return {
         desc: "easter egg",
-        reply: textMessage("คนนี้วาดรูปให้ครับ วาดสวยสุด"),
+        reply: textMessage("คนนี้วาดรูปให้ครับ สวยสุด"),
       };
     } else {
       let chance = Math.random() * 10;
