@@ -11,7 +11,7 @@ function flexHeader(txt) {
         size: "lg",
       },
     ],
-    backgroundColor: "#fecece",
+    backgroundColor: "#fadadd",
   };
   return ret;
 }
@@ -65,7 +65,10 @@ function flexBody(meals) {
       contents.push(flexSeparator());
     }
   });
-  if (contents.length > 0 && contents[contents.length - 1].type == "separator") {
+  if (
+    contents.length > 0 &&
+    contents[contents.length - 1].type == "separator"
+  ) {
     contents.pop();
   }
 

@@ -164,7 +164,7 @@ export class LegacyWeekOverview implements IMessageHandler {
           header: {
             type: "box",
             layout: "vertical",
-            backgroundColor: "#fecece",
+            backgroundColor: "#fadadd",
             contents: [
               {
                 type: "text",
@@ -232,6 +232,12 @@ export class LegacyWeekOverview implements IMessageHandler {
         }
 
         // push element to carousel
+        if (
+          result.body?.contents[result.body?.contents.length - 1].type ==
+          "separator"
+        ) {
+          result.body?.contents.pop();
+        }
         menu.push(result);
       }
 

@@ -54,11 +54,10 @@ function replyMessage(msg, db) {
     "🥺",
     "เปนงง",
     "ม่ายเข้าจายย",
-    "งงจริงๆ",
     "เค้าไม่รักก็ควรพอ",
     "ดงปราคช",
-    "melbourne นะ",
     "ทุกคนรู้",
+    "พักผ่อนเยอะๆ นะ",
   ];
 
   if (isInStr(msg, cmd["bug"])) {
@@ -121,11 +120,11 @@ function replyMessage(msg, db) {
   if (msg in db) {
     date = msg;
     now = moment(date, "MM/DD/YYYY");
-    date2 = now.format("D MMM YYYY");
+    date2 = now.format("D MMM");
     msg = "menu";
   } else {
     date = now.format("M/D/YYYY");
-    date2 = now.format("D MMM YYYY");
+    date2 = now.format("D MMM");
   }
 
   if (date in db) {
@@ -198,7 +197,7 @@ function replyMessage(msg, db) {
     }
 
     let theDay = now.format("ddd");
-    let msgTitle = "[" + theDay + "] " + date2 + dateOpt;
+    let msgTitle = theDay + " " + date2 + dateOpt;
     let showMenu = "";
     showMenu += Object.keys(meals).join(",");
 
