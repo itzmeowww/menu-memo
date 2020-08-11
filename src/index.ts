@@ -9,21 +9,23 @@ const logger = winston.createLogger({
   level: "info",
   format: winston.format.simple(),
   transports: [
-    new winston.transports.File({filename: "log.log"}),
+    new winston.transports.File({ filename: "log.log" }),
     new winston.transports.Console(),
   ],
 });
 
 require("dotenv").config();
 
-const {gsrun, client} = require("./sheet");
-const {replyMessage} = require("./reply");
+const { gsrun, client } = require("./sheet");
+const { replyMessage } = require("./reply");
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 if (!process.env.access_token || !process.env.secret) {
-  logger.error("Process environment is missing credentials for line sdk client. Process will exit");
+  logger.error(
+    "Process environment is missing credentials for line sdk client. Process will exit"
+  );
   exit(1);
 }
 
@@ -64,24 +66,29 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
 
     if (userId) {
       const profile = await lineClient.getProfile(userId);
-      logger.info(`[${new Date().toISOString()}] "${profile.displayName}" said ${msg}`);
+      // logger.info(`[${new Date().toISOString()}] "${profile.displayName}" said ${msg}`);
+      logger.info(`[${new Date().toISOString()}] "Someone" said ${msg}`);
     }
 
     return lineClient.replyMessage(event.replyToken, theReply);
-  }
+  };
 
   app.get("/", (req: express.Request, res: express.Response) => {
     res.send("Running. . .");
   });
 
-  app.post("/webhook", line.middleware(<line.MiddlewareConfig>lineConfig), (req: express.Request, res: express.Response) => {
-    Promise.all(req.body.events.map(handleEvent))
-      .then((result) => res.json(result))
-      .catch((err) => {
-        logger.error(err);
-        res.status(500).end();
-      });
-  });
+  app.post(
+    "/webhook",
+    line.middleware(<line.MiddlewareConfig>lineConfig),
+    (req: express.Request, res: express.Response) => {
+      Promise.all(req.body.events.map(handleEvent))
+        .then((result) => res.json(result))
+        .catch((err) => {
+          logger.error(err);
+          res.status(500).end();
+        });
+    }
+  );
 
   app.get("/test/:cmd", (req: express.Request, res: express.Response) => {
     let cmd = req.params.cmd;
@@ -92,7 +99,7 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
 
   app.get("/api/:date", (req: express.Request, res: express.Response) => {
     let date = req.params.date.replace("-", "/").replace("-", "/");
-    if (db[date] === undefined) res.json({status: "Notfound"});
+    if (db[date] === undefined) res.json({ status: "Notfound" });
     else res.json(db[date]);
     res.status(200).end();
   });
