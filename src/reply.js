@@ -9,7 +9,18 @@ function replyMessage(msg, db) {
   let hours = now.hour();
   let dateOpt = "";
   let cmd = {
-    menu: ["food", "menu", "เมนู", "อาหาร", "meal", "มื้อ", "today", "วันนี้"],
+    menu: [
+      "food",
+      "menu",
+      "เมนู",
+      "อาหาร",
+      "meal",
+      "มื้อ",
+      "today",
+      "วันนี้",
+      "kow",
+      "hew",
+    ],
     breakfast: ["breakfast", "bf", "morning", "เช้า", "morn"],
     lunch: ["lunch", "midday", "เที่ยง"],
     dinner: ["dinner", "เย็น"],
@@ -46,7 +57,6 @@ function replyMessage(msg, db) {
 
   let noCmdList = [
     "🙄",
-    "Ask me help :)",
     "🤨",
     "😪",
     "จริงป่าววว",
@@ -55,9 +65,8 @@ function replyMessage(msg, db) {
     "เปนงง",
     "ม่ายเข้าจายย",
     "เค้าไม่รักก็ควรพอ",
-    "ดงปราคช",
     "ทุกคนรู้",
-    "พักผ่อนเยอะๆ นะ",
+    "ไปนอนกันเถอะ",
   ];
 
   if (isInStr(msg, cmd["bug"])) {
@@ -171,11 +180,6 @@ function replyMessage(msg, db) {
       return {
         desc: "easter egg",
         reply: textMessage(randList(retList)),
-      };
-    } else if (isInStr(msg, ["primpriss"])) {
-      return {
-        desc: "easter egg",
-        reply: textMessage("จะมอบความรักกก"),
       };
     } else if (isInStr(msg, ["mimiemie"])) {
       return {
