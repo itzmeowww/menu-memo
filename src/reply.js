@@ -132,7 +132,7 @@ function replyMessage(msg, db) {
     date2 = now.format("D MMM");
     msg = "menu";
   } else {
-    date = now.format("M/D/YYYY");
+    date = now.format("MM/DD/YYYY");
     date2 = now.format("D MMM");
   }
 

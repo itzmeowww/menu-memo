@@ -1,6 +1,6 @@
 const { google } = require("googleapis");
 require("dotenv").config();
-
+const moment = require("moment");
 const keys = {
   type: "service_account",
   project_id: "food-fetcher-282419",
@@ -47,7 +47,7 @@ async function gsrun(cl) {
         console.log("Listed " + xx.properties.title);
         data.data.values.forEach((x) => {
           if (x.length != 0 && x[0] != "" && x[0] != date) {
-            date = x[0];
+            date = moment(x[0], "DD/MM/YYYY").format("MM/DD/YYYY");
             console.log(date);
           }
           if (date != "") {
