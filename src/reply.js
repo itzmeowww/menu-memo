@@ -128,11 +128,11 @@ function replyMessage(msg, db) {
 
   if (msg in db) {
     date = msg;
-    now = moment(date, "MM/DD/YYYY");
+    now = moment(date, "M/D/YYYY");
     date2 = now.format("D MMM");
     msg = "menu";
   } else {
-    date = now.format("MM/DD/YYYY");
+    date = now.format("M/D/YYYY");
     date2 = now.format("D MMM");
   }
 

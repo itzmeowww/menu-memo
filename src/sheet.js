@@ -47,7 +47,7 @@ async function gsrun(cl) {
         console.log("Listed " + xx.properties.title);
         data.data.values.forEach((x) => {
           if (x.length != 0 && x[0] != "" && x[0] != date) {
-            date = moment(x[0], "DD/MM/YYYY").format("MM/DD/YYYY");
+            date = moment(x[0], "DD/MM/YYYY").format("M/D/YYYY");
             console.log(date);
           }
           if (date != "") {
