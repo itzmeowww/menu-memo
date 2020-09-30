@@ -1,6 +1,8 @@
 const { google } = require("googleapis");
 require("dotenv").config();
 
+const moment = require("moment");
+
 const keys = {
   type: "service_account",
   project_id: "food-fetcher-282419",
@@ -41,10 +43,10 @@ async function gsrun(cl) {
       });
       data.data.values.forEach((x) => {
         if (x.length != 0 && x[0] != "" && x[0] != date) {
-          date = x[0];
+          date = moment(x[0], "DD/MM/YYYY").format("MM/DD/YYYY");
           console.log(date);
         }
-        if (date != "") {
+        if (date != "" && date != "Invalid date") {
           //   console.log(database);
           //   console.log(x);
           if (!(date in database))
@@ -54,6 +56,7 @@ async function gsrun(cl) {
               Dinner: [],
             };
           //D M Y
+
           if (x[1]) database[date]["Breakfast"].push(x[1]);
           if (x[2]) database[date]["Lunch"].push(x[2]);
           if (x[3]) database[date]["Dinner"].push(x[3]);

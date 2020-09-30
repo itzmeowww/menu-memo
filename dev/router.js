@@ -29,7 +29,7 @@ const main = (msg) => {
     }
   }
   if (query(msg) != undefined) {
-    return menu(moment(date, "MM/DD/YYYY"));
+    return menu(moment(date, "DD/MM/YYYY"));
   }
   return randomReply();
 };

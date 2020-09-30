@@ -22,7 +22,7 @@ const meal = (periods) => {
         dateOpt = " (tomorrow)";
       }
     }
-    let menu = query(date.format("D/M/YYYY"));
+    let menu = query(date.format("MM/DD/YYYY"));
     let meals = {};
     for (period of periods) {
       meals[period.toLowerCase()] = [...menu[period]];
@@ -40,7 +40,7 @@ const lunch = meal(["Lunch"]);
 const dinner = meal(["Dinner"]);
 const tomorrow = () => {
   let tmr = getDate().add(1, "d");
-  return menu(tmr);
+  return menu(tmr.format("MM/DD/YYYY"));
 };
 
 const nextMeal = () => {

@@ -51,7 +51,7 @@ app.get("/test/:cmd", (req, res) => {
 });
 app.get("/api/:date", (req, res) => {
   let date = req.params.date.replace("-", "/").replace("-", "/");
-  if (query(date) === undefined) res.json({ status: "Notfound" });
+  if (date === undefined) res.json({ status: "Notfound" });
   else res.json(query(date));
   res.status(200).end();
 });
