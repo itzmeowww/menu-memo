@@ -22,7 +22,7 @@ const meal = (periods) => {
         dateOpt = " (tomorrow)";
       }
     }
-    let menu = query(date.format("M/D/YYYY"));
+    let menu = query(date.format("D/M/YYYY"));
     let meals = {};
     for (period of periods) {
       meals[period.toLowerCase()] = [...menu[period]];
