@@ -42,7 +42,7 @@ async function gsrun(cl) {
       data.data.values.forEach((x) => {
         if (x.length != 0 && x[0] != "" && x[0] != date) {
           date = x[0];
-          // console.log(date);
+          console.log(date);
         }
         if (date != "") {
           //   console.log(database);

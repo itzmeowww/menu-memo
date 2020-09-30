@@ -30,9 +30,9 @@ async function gsrun(cl) {
   let sp = await gsapi.spreadsheets.get({
     spreadsheetId: "1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw",
   });
-  // console.log("sp");
-  // console.log(sp.data.sheets);
-  // console.log(sp.data.sheets.length);
+  console.log("sp");
+  console.log(sp.data.sheets);
+  console.log(sp.data.sheets.length);
   for (let ii = 0; ii < sp.data.sheets.length; ii++) {
     // console.log(ii);
     let xx = sp.data.sheets[ii];
@@ -48,7 +48,7 @@ async function gsrun(cl) {
         data.data.values.forEach((x) => {
           if (x.length != 0 && x[0] != "" && x[0] != date) {
             date = x[0];
-            // console.log(date);
+            console.log(date);
           }
           if (date != "") {
             //   console.log(database);
