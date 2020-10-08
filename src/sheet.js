@@ -38,19 +38,32 @@ async function gsrun(cl) {
     let xx = sp.data.sheets[ii];
     let date = "";
     // console.log(xx.properties.title);
-    if (!xx.properties.title.endsWith("19") && !xx.properties.hidden) {
+    const badTitle = [
+      "16-30Sep 20",
+      "1-15 Sep 20",
+      "1-15 Aug 20",
+      " 16-31 Aug 20",
+      "16-31July 20",
+      "1-15July 20",
+      "13-30 June 20",
+      "1-9 Mar20",
+    ];
+    if (
+      !xx.properties.title.endsWith("19") &&
+      !xx.properties.hidden &&
+      !badTitle.includes(xx.properties.title)
+    ) {
       let data = await gsapi.spreadsheets.values.get({
         spreadsheetId: "1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw",
         range: xx.properties.title,
       });
       if (data.data.values) {
-        console.log("Listed " + xx.properties.title);
         data.data.values.forEach((x) => {
           if (x.length != 0 && x[0] != "" && x[0] != date) {
             date = moment(x[0], "DD/MM/YYYY").format("M/D/YYYY");
-            console.log(date);
+            if (date != "Invalid date") console.log(date);
           }
-          if (date != "") {
+          if (date != "" && date != "Invalid date") {
             //   console.log(database);
             //   console.log(x);
             if (!(date in database))
