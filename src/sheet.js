@@ -73,19 +73,21 @@ async function gsrun(cl) {
                 Dinner: [],
               };
 
-            // if (x[1]) database[date]["Breakfast"].push(x[1]);
-            // if (x[2]) database[date]["Lunch"].push(x[2]);
-            // if (x[3]) database[date]["Dinner"].push(x[3]);
-
-            if (x[1]) database[date]["Breakfast"].push(x[1]);
-            if (x[2] && x[2] != "อาหารเจ")
-              database[date]["Breakfast"].push("เจ : " + x[2]);
-            if (x[3]) database[date]["Lunch"].push(x[3]);
-            if (x[4] && x[4] != "อาหารเจ")
-              database[date]["Lunch"].push("เจ : " + x[4]);
-            if (x[5]) database[date]["Dinner"].push(x[5]);
-            if (x[6] && x[6] != "อาหารเจ")
-              database[date]["Dinner"].push("เจ : " + x[6]);
+            if (xx.properties.title == "16-31 Oct 20") {
+              if (x[1]) database[date]["Breakfast"].push(x[1]);
+              if (x[2] && x[2] != "อาหารเจ")
+                database[date]["Breakfast"].push("เจ : " + x[2]);
+              if (x[3]) database[date]["Lunch"].push(x[3]);
+              if (x[4] && x[4] != "อาหารเจ")
+                database[date]["Lunch"].push("เจ : " + x[4]);
+              if (x[5]) database[date]["Dinner"].push(x[5]);
+              if (x[6] && x[6] != "อาหารเจ")
+                database[date]["Dinner"].push("เจ : " + x[6]);
+            } else {
+              if (x[1]) database[date]["Breakfast"].push(x[1]);
+              if (x[2]) database[date]["Lunch"].push(x[2]);
+              if (x[3]) database[date]["Dinner"].push(x[3]);
+            }
           }
         });
       }
