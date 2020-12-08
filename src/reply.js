@@ -29,6 +29,7 @@ function replyMessage(msg, db) {
     tomorrow: ["tomorrow", "tmr", "พรุ่งนี้", "พน", "พ.น."],
     bug: ["bug", "comment", "แนะนำ", "บัค"],
     yesterday: ["เมื่อวาน", "yesterday", "ytd"],
+    link: ["link", "ลิ้งก์", "ลิ้งค์"],
   };
 
   let fullCmdList = [];
@@ -67,6 +68,7 @@ function replyMessage(msg, db) {
     "เค้าไม่รักก็ควรพอ",
     "ทุกคนรู้",
     "ไปนอนกันเถอะ",
+    "https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098",
   ];
 
   if (isInStr(msg, cmd["bug"])) {
@@ -186,6 +188,13 @@ function replyMessage(msg, db) {
         desc: "easter egg",
         reply: textMessage("คนนี้วาดรูปให้ครับ สวยสุด"),
       };
+    } else if (isInStr(msg, cmd["link"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage(
+          "https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
+        ),
+      };
     } else {
       let chance = Math.random() * 10;
       if (true)
@@ -210,7 +219,12 @@ function replyMessage(msg, db) {
       reply: flexMessage(msgTitle, meals),
     };
   } else {
-    return { desc: "Try again later~", reply: textMessage("Try again later~") };
+    return {
+      desc: "Try again later~",
+      reply: textMessage(
+        "Try again later~ or use https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
+      ),
+    };
   }
 }
 
