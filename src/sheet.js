@@ -30,9 +30,9 @@ async function gsrun(cl) {
   let sp = await gsapi.spreadsheets.get({
     spreadsheetId: "1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw",
   });
-  console.log("sp");
-  console.log(sp.data.sheets);
-  console.log(sp.data.sheets.length);
+  // console.log("sp");
+  // console.log(sp.data.sheets);
+  // console.log(sp.data.sheets.length);
   for (let ii = 0; ii < sp.data.sheets.length; ii++) {
     // console.log(ii);
     let xx = sp.data.sheets[ii];
@@ -47,9 +47,63 @@ async function gsrun(cl) {
       "1-15July 20",
       "13-30 June 20",
       "1-9 Mar20",
+      "Form Responses 1",
+      "1-15 may",
+      "16-31May",
+      "1-15Jun",
+      "16-30Jun",
+      "1-15Jul",
+      "16-31Ju",
+      "1-15Aug",
+      "16-22Aug",
+      "23-31Aug",
+      "1-15 Sep",
+      "16-30Sep",
+      "1-6 Oct",
+      "13-31 Oct",
+      "1-30 NOV",
+      "1-27Dec",
+      "6-31Jan19",
+      "1-15Feb19",
+      "16-28Feb19",
+      "1-9 Mar 19",
+      "27-15Apr",
+      "21Apr-15May19",
+      "16May-8Jun19",
+      "6-30Jun19",
+      "1-13Jul19",
+      "20-31July19",
+      "1-15Aug19",
+      "16-30 Sep19",
+      "20-31Oct.19",
+      "1-30NOV19",
+      "1-31Jan63",
+      "1-30Dec19",
+      "1-15/2/20",
+      "16-29 Feb 20",
+      "1-9 Mar20",
+      "13-30 June 20",
+      "1-15July 20",
+      "16-31July 20",
+      "1-15 Aug 20",
+      " 16-31 Aug 20",
+      "1-15 Sep 20",
+      "16-30Sep 20",
+      "1-15 Oct 20",
+      "16-31 Oct 20",
+      "1-15 Nov 20",
+      "16-30 Nov 20",
+      "1-15 Dec 20",
+      "16-30 Dec 20",
+      "1-15 Jan 21",
+      "31 Jan-15 Feb",
+      "16-28 Feb 21",
+      "1-15 Mar 21",
     ];
+    console.log(xx.properties.title);
     if (
       !xx.properties.title.endsWith("19") &&
+      !xx.properties.title.endsWith("20") &&
       !xx.properties.hidden &&
       !badTitle.includes(xx.properties.title)
     ) {
@@ -61,7 +115,7 @@ async function gsrun(cl) {
         data.data.values.forEach((x) => {
           if (x.length != 0 && x[0] != "" && x[0] != date) {
             date = moment(x[0], "DD/MM/YYYY").format("M/D/YYYY");
-            if (date != "Invalid date") console.log(date);
+            // if (date != "Invalid date") console.log(date);
           }
           if (date != "" && date != "Invalid date") {
             //   console.log(database);
