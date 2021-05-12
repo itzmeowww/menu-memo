@@ -68,6 +68,8 @@ function replyMessage(msg, db) {
     "เค้าไม่รักก็ควรพอ",
     "ทุกคนรู้",
     "ไปนอนกันเถอะ",
+    "เมี๊ยว",
+    "โฮ่ง ๆ",
     "https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098",
   ];
 
@@ -174,11 +176,7 @@ function replyMessage(msg, db) {
         reply: textMessage("ว้าวๆๆๆๆๆๆๆ"),
       };
     } else if (isInStr(msg, ["วิน", "win", "thanasan", "ธนาสรรค์"])) {
-      let retList = [
-        "วินหรือป่าว ใช่วินหรือป่าว",
-        "ลองเล่นดูว : itzmeowww.me/pages/oreo",
-        "ลองเล่นดูวว : itzmeowww.me/pages/snake",
-      ];
+      let retList = ["วินหรือป่าว ใช่วินหรือป่าว"];
       return {
         desc: "easter egg",
         reply: textMessage(randList(retList)),
@@ -186,11 +184,11 @@ function replyMessage(msg, db) {
     } else if (isInStr(msg, ["mimiemie"])) {
       return {
         desc: "easter egg",
-        reply: textMessage("คนนี้วาดรูปให้ครับ สวยสุด"),
+        reply: textMessage("คนนี้วาดรูปโปรไฟล์ให้ครับ สวยสุด"),
       };
     } else if (isInStr(msg, cmd["link"])) {
       return {
-        desc: "easter egg",
+        desc: "link",
         reply: textMessage(
           "https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
         ),
@@ -220,9 +218,9 @@ function replyMessage(msg, db) {
     };
   } else {
     return {
-      desc: "Try again later~",
+      desc: "Service is not available",
       reply: textMessage(
-        "Try again later~ or use https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
+        "Try again later 😥 or use https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
       ),
     };
   }
