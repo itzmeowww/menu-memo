@@ -113,9 +113,8 @@ async function gsrun(cl) {
       });
       if (data.data.values) {
         data.data.values.forEach((x) => {
-          if (x.length != 0 && x[0] != "" && x[0] != date) {
+          if (x.length != 0 && x[0] != "" && x[0] != " " && x[0] != date) {
             date = moment(x[0], "DD/MM/YYYY").format("M/D/YYYY");
-            // if (date != "Invalid date") console.log(date);
           }
           if (date != "" && date != "Invalid date") {
             //   console.log(database);
