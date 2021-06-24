@@ -11,7 +11,7 @@ function flexHeader(txt) {
         size: "lg",
       },
     ],
-    backgroundColor: "#fadadd",
+    backgroundColor: "#EFD9D1",
   };
   return ret;
 }
@@ -43,7 +43,7 @@ function flexSeparator() {
   let ret = {
     type: "separator",
     margin: "md",
-    color: "#000000",
+    color: "#D8AC9C",
   };
   return ret;
 }
@@ -53,7 +53,7 @@ function flexBody(meals) {
   let ret = {
     type: "box",
     layout: "vertical",
-    backgroundColor: "#e5edff",
+    backgroundColor: "#F7F2E7",
   };
   let mealName = ["Breakfast", "Lunch", "Dinner"];
   mealName.forEach((meal) => {
@@ -106,7 +106,7 @@ function flexHelpBody(cmdList) {
   let ret = {
     type: "box",
     layout: "vertical",
-    backgroundColor: "#e5edff",
+    backgroundColor: "#F7F2E7",
   };
   cmdList.forEach((x) => {
     contents.push(flexHelpText(x));
