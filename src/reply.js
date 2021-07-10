@@ -186,6 +186,11 @@ function replyMessage(msg, db) {
         desc: "easter egg",
         reply: textMessage("คนนี้วาดรูปโปรไฟล์ให้ครับ สวยสุด"),
       };
+    } else if (isInStr(msg, ["พี่รหัสเป็นใครเอ่ย"])) {
+      return {
+        desc: "easter egg",
+        reply: textMessage("ยังไม่ได้เขียนทิ้งเอาไว้ก่อนน"),
+      };
     } else if (isInStr(msg, cmd["link"])) {
       return {
         desc: "link",
