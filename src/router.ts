@@ -164,7 +164,7 @@ export class LegacyWeekOverview implements IMessageHandler {
           header: {
             type: "box",
             layout: "vertical",
-            backgroundColor: "#fadadd",
+            backgroundColor: "#EFD9D1",
             contents: [
               {
                 type: "text",
@@ -178,7 +178,7 @@ export class LegacyWeekOverview implements IMessageHandler {
           body: {
             type: "box",
             layout: "vertical",
-            backgroundColor: "#e5edff",
+            backgroundColor: "#F7F2E7",
             contents: [],
           },
         };
@@ -210,7 +210,7 @@ export class LegacyWeekOverview implements IMessageHandler {
           result.push({
             type: "separator",
             margin: "md",
-            color: "#000000",
+            color: "#D8AC9C",
           });
 
           return result;
