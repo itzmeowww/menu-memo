@@ -30,6 +30,8 @@ function replyMessage(msg, db) {
     bug: ["bug", "comment", "แนะนำ", "บัค"],
     yesterday: ["เมื่อวาน", "yesterday", "ytd"],
     link: ["link", "ลิ้งก์", "ลิ้งค์"],
+    evaluate: ["ประเมิล","evaluate","menu evaluation","eval","ให้คะแนน","คะแนน"],
+    suggest: ["suggest","เสนอ","menu suggestion"]
   };
 
   let fullCmdList = [];
@@ -189,7 +191,7 @@ function replyMessage(msg, db) {
     } else if (isInStr(msg, ["พี่รหัสเป็นใครเอ่ย"])) {
       return {
         desc: "easter egg",
-        reply: textMessage("ยังไม่ได้เขียนทิ้งเอาไว้ก่อนน"),
+        reply: textMessage("ใครกันนะ น่าสงสัย"),
       };
     } else if (isInStr(msg, cmd["link"])) {
       return {
@@ -197,6 +199,13 @@ function replyMessage(msg, db) {
         reply: textMessage(
           "https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
         ),
+      };
+     } else if (isInStr(msg, cmd["evaluate"])) {
+        return {
+          desc: "evaluate",
+          reply: textMessage(
+            "https://forms.gle/WPWzDd3juhnB2Au17"
+          ),
       };
     } else {
       let chance = Math.random() * 10;
