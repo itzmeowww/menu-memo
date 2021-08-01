@@ -204,7 +204,7 @@ function replyMessage(msg, db) {
         return {
           desc: "evaluate",
           reply: textMessage(
-            "https://docs.google.com/forms/d/174534T_MuLMpYQVFsB_4mU7vZ124sAEyRpouxPxs3mQ/edit?usp=sharing"
+            "https://forms.gle/WPWzDd3juhnB2Au17"
           ),
       };
     } else {
