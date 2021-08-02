@@ -55,6 +55,7 @@ function replyMessage(msg, db) {
     "bug",
     "แนะนำ",
     "week",
+    "ประเมิล",
     "((Some Easter Eggs))",
   ];
 
@@ -204,7 +205,7 @@ function replyMessage(msg, db) {
         return {
           desc: "evaluate",
           reply: textMessage(
-            "https://forms.gle/WPWzDd3juhnB2Au17"
+            "https://forms.office.com/r/snawiSUY8H"
           ),
       };
     } else {
