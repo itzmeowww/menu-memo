@@ -30,7 +30,7 @@ function replyMessage(msg, db) {
     bug: ["bug", "comment", "แนะนำ", "บัค"],
     yesterday: ["เมื่อวาน", "yesterday", "ytd"],
     link: ["link", "ลิ้งก์", "ลิ้งค์"],
-    evaluate: ["ประเมิล","evaluate","menu evaluation","eval","ให้คะแนน","คะแนน"],
+    feedback: ["ประเมิล","evaluate","menu evaluation","eval","ให้คะแนน","feedback"],
     suggest: ["suggest","เสนอ","menu suggestion"]
   };
 
@@ -55,7 +55,7 @@ function replyMessage(msg, db) {
     "bug",
     "แนะนำ",
     "week",
-    "ประเมิล",
+    "feedback",
     "((Some Easter Eggs))",
   ];
 
@@ -201,9 +201,9 @@ function replyMessage(msg, db) {
           "https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
         ),
       };
-     } else if (isInStr(msg, cmd["evaluate"])) {
+     } else if (isInStr(msg, cmd["feedback"])) {
         return {
-          desc: "evaluate",
+          desc: "feedback",
           reply: textMessage(
             "https://forms.office.com/r/snawiSUY8H"
           ),
