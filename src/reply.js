@@ -192,7 +192,7 @@ function replyMessage(msg, db) {
     } else if (isInStr(msg, ["พี่รหัสเป็นใครเอ่ย"])) {
       return {
         desc: "easter egg",
-        reply: textMessage("ใครกันนะ น่าสงสัย"),
+        reply: textMessage("พีี่แชมป์เองแหละจ้าา"),
       };
     } else if (isInStr(msg, cmd["link"])) {
       return {
