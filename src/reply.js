@@ -30,8 +30,15 @@ function replyMessage(msg, db) {
     bug: ["bug", "comment", "แนะนำ", "บัค"],
     yesterday: ["เมื่อวาน", "yesterday", "ytd"],
     link: ["link", "ลิ้งก์", "ลิ้งค์"],
-    feedback: ["ประเมิล","evaluate","menu evaluation","eval","ให้คะแนน","feedback"],
-    suggest: ["suggest","เสนอ","menu suggestion"]
+    feedback: [
+      "ประเมิล",
+      "evaluate",
+      "menu evaluation",
+      "eval",
+      "ให้คะแนน",
+      "feedback",
+    ],
+    suggest: ["suggest", "เสนอ", "menu suggestion"],
   };
 
   let fullCmdList = [];
@@ -201,12 +208,10 @@ function replyMessage(msg, db) {
           "https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
         ),
       };
-     } else if (isInStr(msg, cmd["feedback"])) {
-        return {
-          desc: "feedback",
-          reply: textMessage(
-            "https://forms.office.com/r/snawiSUY8H"
-          ),
+    } else if (isInStr(msg, cmd["feedback"])) {
+      return {
+        desc: "feedback",
+        reply: textMessage("https://forms.office.com/r/snawiSUY8H"),
       };
     } else {
       let chance = Math.random() * 10;
@@ -235,7 +240,7 @@ function replyMessage(msg, db) {
     return {
       desc: "Service is not available",
       reply: textMessage(
-        "Try again later 😥 or use https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
+        "Please try again later or visit https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
       ),
     };
   }
