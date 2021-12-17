@@ -2,7 +2,8 @@
  * Various router and handler for messages
  */
 
-import { flexMessage, textMessage } from "./style.js";
+// import { flexMessage, textMessage } from "./style.js";
+import { theme } from "./theme.js";
 import * as moment from "moment";
 import "./arrayRandom";
 import { FlexBubble, FlexComponent, FlexMessage, Message } from "@line/bot-sdk";
@@ -164,10 +165,11 @@ export class LegacyWeekOverview implements IMessageHandler {
           header: {
             type: "box",
             layout: "vertical",
-            backgroundColor: "#EFD9D1",
+            backgroundColor: theme.header.backgroundColor,
             contents: [
               {
                 type: "text",
+                color: theme.header.color,
                 text: date.format("ddd D MMM"),
                 align: "center",
                 weight: "bold",
@@ -178,7 +180,7 @@ export class LegacyWeekOverview implements IMessageHandler {
           body: {
             type: "box",
             layout: "vertical",
-            backgroundColor: "#F7F2E7",
+            backgroundColor: theme.body.backgroundColor,
             contents: [],
           },
         };
@@ -194,6 +196,7 @@ export class LegacyWeekOverview implements IMessageHandler {
               text: name,
               align: "center",
               weight: "bold",
+              color: theme.body.color,
               margin: "md",
             },
           ];
@@ -210,7 +213,7 @@ export class LegacyWeekOverview implements IMessageHandler {
           result.push({
             type: "separator",
             margin: "md",
-            color: "#D8AC9C",
+            color: theme.body.separatorColor,
           });
 
           return result;

@@ -1,3 +1,5 @@
+import { theme } from "./theme";
+
 function flexHeader(txt) {
   let ret = {
     type: "box",
@@ -6,13 +8,13 @@ function flexHeader(txt) {
       {
         type: "text",
         text: txt,
-        color: "#ffffff",
+        color: theme.header.color,
         align: "center",
         weight: "bold",
         size: "lg",
       },
     ],
-    backgroundColor: "#AB0000",
+    backgroundColor: theme.header.backgroundColor,
   };
   return ret;
 }
@@ -45,7 +47,7 @@ function flexSeparator() {
   let ret = {
     type: "separator",
     margin: "md",
-    color: "#D8AC9C",
+    color: theme.body.separatorColor,
   };
   return ret;
 }
