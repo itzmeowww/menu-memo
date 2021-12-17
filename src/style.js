@@ -90,6 +90,30 @@ function flexHelpText(text) {
   };
 }
 
+function flexBackgroundImage(flexBody) {
+  return {
+    type: "box",
+    layout: "vertical",
+    backgroundColor: theme.body.backgroundColor,
+    contents: [
+      {
+        type: "image",
+        url: "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+        position: "absolute",
+        size: "full",
+        align: "center",
+        gravity: "center",
+        aspectMode: "cover",
+      },
+      {
+        type: "box",
+        layout: "vertical",
+        contents: flexBody.contents,
+      },
+    ],
+  };
+}
+
 function flexMessage(date, meals) {
   let ret = {
     type: "flex",
@@ -97,7 +121,7 @@ function flexMessage(date, meals) {
     contents: {
       type: "bubble",
       header: flexHeader(date),
-      body: flexBody(meals),
+      body: flexBackgroundImage(flexBody(meals)),
     },
     size: "micro",
   };
@@ -110,7 +134,7 @@ function flexHelpBody(cmdList) {
   let ret = {
     type: "box",
     layout: "vertical",
-    backgroundColor: "#F7F2E7",
+    backgroundColor: theme.body.backgroundColor,
   };
   cmdList.forEach((x) => {
     contents.push(flexHelpText(x));

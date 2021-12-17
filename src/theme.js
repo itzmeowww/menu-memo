@@ -6,7 +6,7 @@ const theme = {
   body: {
     backgroundColor: "#F1E2CB",
     color: "#AB0000",
-    separatorColor: "#D8AC9C",
+    separatorColor: "#AB0000",
   },
 };
 

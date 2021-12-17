@@ -93,6 +93,7 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
   app.get("/test/:cmd", (req: express.Request, res: express.Response) => {
     let cmd = req.params.cmd;
     if (!cmd) res.status(500).end();
+
     res.json(messageRouter.reply(cmd));
     res.status(200).end();
   });
