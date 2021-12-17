@@ -6,6 +6,7 @@ function flexHeader(txt) {
       {
         type: "text",
         text: txt,
+        color: "#ffffff",
         align: "center",
         weight: "bold",
         size: "lg",
@@ -20,6 +21,7 @@ function flexMeal(meal) {
   return {
     type: "text",
     text: meal,
+    color: "#AB0000",
     align: "center",
     gravity: "center",
     margin: "md",
