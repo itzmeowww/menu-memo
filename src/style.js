@@ -103,6 +103,7 @@ function flexBackgroundImage(flexBody) {
         align: "center",
         gravity: "center",
         aspectMode: "fit",
+        aspectRatio: "1:2",
       },
       {
         type: "box",
