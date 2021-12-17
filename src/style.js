@@ -98,7 +98,7 @@ function flexBackgroundImage(flexBody) {
     contents: [
       {
         type: "image",
-        url: "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+        url: theme.body.imageURL,
         position: "absolute",
         size: "full",
         align: "center",
@@ -111,6 +111,8 @@ function flexBackgroundImage(flexBody) {
         contents: flexBody.contents,
       },
     ],
+    justifyContent: "center",
+    alignItems: "center",
   };
 }
 
