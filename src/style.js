@@ -124,7 +124,7 @@ function flexMessage(date, meals) {
       type: "bubble",
       header: flexHeader(date),
       body: flexBackgroundImage(flexBody(meals)),
-      size: "kilo",
+      size: "mega",
     },
   };
 
