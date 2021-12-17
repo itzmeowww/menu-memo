@@ -102,7 +102,7 @@ function flexBackgroundImage(flexBody) {
         size: "full",
         align: "center",
         gravity: "center",
-        aspectMode: "cover",
+        aspectMode: "fit",
       },
       {
         type: "box",
@@ -124,8 +124,8 @@ function flexMessage(date, meals) {
       type: "bubble",
       header: flexHeader(date),
       body: flexBackgroundImage(flexBody(meals)),
+      size: "kilo",
     },
-    size: "micro",
   };
 
   return ret;

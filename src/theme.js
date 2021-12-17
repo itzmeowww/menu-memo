@@ -7,7 +7,8 @@ const theme = {
     backgroundColor: "#F1E2CB",
     color: "#AB0000",
     separatorColor: "#AB0000",
-    imageURL: "https://github.com/itzmeowww/menu-memo/img/christmas.jpg",
+    imageURL:
+      "https://raw.githubusercontent.com/itzmeowww/menu-memo/master/img/christmas.jpg",
   },
 };
 
