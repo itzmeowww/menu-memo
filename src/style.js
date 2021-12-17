@@ -108,6 +108,7 @@ function flexBackgroundImage(flexBody) {
         type: "box",
         layout: "vertical",
         contents: flexBody.contents,
+        width: "100%",
       },
     ],
     justifyContent: "center",

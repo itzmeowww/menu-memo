@@ -7,8 +7,7 @@ const theme = {
     backgroundColor: "#F1E2CB",
     color: "#AB0000",
     separatorColor: "#AB0000",
-    imageURL:
-      "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+    imageURL: "https://github.com/itzmeowww/menu-memo/img/christmas.jpg",
   },
 };
 
