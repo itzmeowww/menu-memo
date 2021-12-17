@@ -13,6 +13,15 @@ function isInStr(msg, msgList) {
   return have;
 }
 
+const findDateFromMenuName = (msg, db) => {
+  let db = {
+    "12/12/2021" : {
+      
+    }
+  }
+  db.entries()
+};
+
 module.exports = {
   randList,
   isInStr,

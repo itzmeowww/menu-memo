@@ -11,7 +11,7 @@ function flexHeader(txt) {
         size: "lg",
       },
     ],
-    backgroundColor: "#EFD9D1",
+    backgroundColor: "#AB0000",
   };
   return ret;
 }
@@ -53,7 +53,7 @@ function flexBody(meals) {
   let ret = {
     type: "box",
     layout: "vertical",
-    backgroundColor: "#F7F2E7",
+    backgroundColor: "#F1E2CB",
   };
   let mealName = ["Breakfast", "Lunch", "Dinner"];
   mealName.forEach((meal) => {

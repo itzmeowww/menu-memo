@@ -31,7 +31,7 @@ function replyMessage(msg, db) {
     yesterday: ["เมื่อวาน", "yesterday", "ytd"],
     link: ["link", "ลิ้งก์", "ลิ้งค์"],
     feedback: [
-      "ประเมิล",
+      "ประเมิน",
       "evaluate",
       "menu evaluation",
       "eval",
