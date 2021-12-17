@@ -19,17 +19,15 @@ function flexHeader(txt) {
   return ret;
 }
 
-function flexMeal(meal) {
+function flexMeal(meal, idx) {
   return {
     type: "text",
     text: meal,
     color: "#AB0000",
     align: "center",
     gravity: "center",
-    margin: "md",
+    margin: idx === 0 ? "none" : "md",
     weight: "bold",
-    offsetTop: "0px",
-    offsetBottom: "15px",
   };
 }
 
@@ -39,7 +37,6 @@ function flexMenu(menu) {
     text: menu,
     align: "center",
     gravity: "center",
-    offsetTop: "5px",
   };
 }
 
@@ -57,16 +54,18 @@ function flexBody(meals) {
   let ret = {
     type: "box",
     layout: "vertical",
-    backgroundColor: "#F1E2CB",
+    backgroundColor: theme.body.backgroundColor,
   };
   let mealName = ["Breakfast", "Lunch", "Dinner"];
+  let idx = 0;
   mealName.forEach((meal) => {
     if (meal.toLowerCase() in meals) {
-      contents.push(flexMeal(meal));
+      contents.push(flexMeal(meal, idx));
       meals[meal.toLowerCase()].forEach((menu) => {
         contents.push(flexMenu(menu));
       });
       contents.push(flexSeparator());
+      idx++;
     }
   });
   if (
