@@ -9,6 +9,7 @@ const theme = {
     separatorColor: "#AB0000",
     imageURL:
       "https://raw.githubusercontent.com/itzmeowww/menu-memo/master/img/christmas.png",
+    imageRatio: "2824:4454",
   },
 };
 

@@ -52,18 +52,16 @@ function replyMessage(msg, db) {
   // console.log(fullCmdList);
 
   let cmdList = [
-    "menu",
-    "breakfast",
-    "lunch",
-    "dinner",
-    "tmr",
-    "หิว",
+    "Menu",
+    "Breakfast",
+    "Lunch",
+    "Dinner",
+    "Tmr",
     "M/D/YYYY",
-    "bug",
-    "แนะนำ",
-    "week",
-    "feedback",
-    "((Some Easter Eggs))",
+    "Bug",
+    "Suggest",
+    "Week",
+    "✨Some Easter Eggs✨",
   ];
 
   let noCmdList = [

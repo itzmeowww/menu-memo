@@ -103,7 +103,7 @@ function flexBackgroundImage(flexBody) {
         align: "center",
         gravity: "center",
         aspectMode: "cover",
-        aspectRatio: "1:1.6",
+        aspectRatio: theme.body.imageRatio,
         offsetTop: "0px",
       },
       {
@@ -113,7 +113,7 @@ function flexBackgroundImage(flexBody) {
         width: "100%",
       },
     ],
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
   };
 }
