@@ -102,7 +102,7 @@ function flexBackgroundImage(flexBody) {
         size: "full",
         align: "center",
         gravity: "center",
-        aspectMode: "fit",
+        aspectMode: "cover",
         offsetTop: "0px",
         aspectRatio: theme.body.imageRatio,
       },
