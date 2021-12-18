@@ -102,8 +102,8 @@ function flexBackgroundImage(flexBody) {
         size: "full",
         align: "center",
         gravity: "center",
-        aspectMode: "fit",
-        aspectRatio: "1:2",
+        aspectMode: "cover",
+        aspectRatio: "1:1.5",
       },
       {
         type: "box",
@@ -153,9 +153,9 @@ function flexHelp(cmdList) {
     contents: {
       type: "bubble",
       header: flexHeader("Commands"),
-      body: flexHelpBody(cmdList),
+      body: flexBackgroundImage(flexHelpBody(cmdList)),
+      size: "mega",
     },
-    size: "nano",
   };
   return ret;
 }
