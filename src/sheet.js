@@ -111,11 +111,11 @@ async function gsrun(cl) {
         spreadsheetId: "1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw",
         range: xx.properties.title,
       });
-      year = "2021";
+      // year = "2021";
       if (data.data.values) {
         data.data.values.forEach((x) => {
           if (x.length != 0 && x[0] != "" && x[0] != " " && x[0] != date) {
-            date = moment(x[0] + "-" + year, "DD-MMM-YYYY").format("M/D/YYYY");
+            date = moment(x[0], "D/M/YYYY").format("M/D/YYYY");
           }
           if (date != "" && date != "Invalid date") {
             //   console.log(database);
