@@ -4,7 +4,7 @@ const theme = {
     color: "#FFFFFF",
   },
   body: {
-    backgroundColor: "#fad4d1",
+    backgroundColor: "#fbccc7",
     color: "#FF8896",
     separatorColor: "#FF8896",
     imageURL:

@@ -13,9 +13,9 @@
 ## February 2022 - Valentine's Day
 
 ![img](./img/richmenu/valentine.jpeg)
-![img](./img/background/valentine.jpg)
+![img](./img/background/valentine.png)
 
 ![#FF8896](https://via.placeholder.com/15/FF8896/000000?text=+)
 ![#FFBBC1](https://via.placeholder.com/15/FFBBC1/000000?text=+)
-![#fad4d1](https://via.placeholder.com/15/fad4d1/000000?text=+)
+![#fbccc7](https://via.placeholder.com/15/fbccc7/000000?text=+)
 ![#FFFFFF](https://via.placeholder.com/15/FFFFFF/000000?text=+)
