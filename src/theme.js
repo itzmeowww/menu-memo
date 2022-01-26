@@ -8,8 +8,8 @@ const theme = {
     color: "#FF8896",
     separatorColor: "#FF8896",
     imageURL:
-      "https://raw.githubusercontent.com/itzmeowww/menu-memo/master/img/background/valentine.png",
-    imageRatio: "1200:1800",
+      "https://raw.githubusercontent.com/itzmeowww/menu-memo/master/img/background/valentine2.jpg",
+    imageRatio: "1020:1608",
   },
 };
 
