@@ -23,7 +23,7 @@ function flexMeal(meal, idx) {
   return {
     type: "text",
     text: meal,
-    color: "#AB0000",
+    color: theme.body.color,
     align: "center",
     gravity: "center",
     margin: idx === 0 ? "none" : "md",
