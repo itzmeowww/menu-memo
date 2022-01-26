@@ -238,7 +238,7 @@ function replyMessage(msg, db) {
     return {
       desc: "Service is not available",
       reply: textMessage(
-        "Please try again later or visit https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
+        "Menu is not found, please use this link instead: https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098"
       ),
     };
   }

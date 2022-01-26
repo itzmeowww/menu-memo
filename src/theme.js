@@ -1,15 +1,15 @@
 const theme = {
   header: {
-    backgroundColor: "#AB0000",
+    backgroundColor: "#FF8896",
     color: "#FFFFFF",
   },
   body: {
-    backgroundColor: "#F1E2CB",
-    color: "#AB0000",
-    separatorColor: "#AB0000",
+    backgroundColor: "#fad4d1",
+    color: "#FF8896",
+    separatorColor: "#FF8896",
     imageURL:
-      "https://raw.githubusercontent.com/itzmeowww/menu-memo/master/img/christmas.png",
-    imageRatio: "2824:4454",
+      "https://raw.githubusercontent.com/itzmeowww/menu-memo/master/img/background/valentine.jpg",
+    imageRatio: "1045:1568",
   },
 };
 

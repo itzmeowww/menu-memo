@@ -251,7 +251,7 @@ export class LegacyWeekOverview implements IMessageHandler {
     if (menu.length === 0) {
       return {
         type: "text",
-        text: "Unable to get your menu. Please try again later.",
+        text: "Unable to get your menu. Please use this link: https://docs.google.com/spreadsheets/d/1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw/edit#gid=1095799098",
       };
     }
 
