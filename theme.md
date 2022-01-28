@@ -17,5 +17,5 @@
 
 ![#FF8896](https://via.placeholder.com/15/FF8896/000000?text=+)
 ![#FFBBC1](https://via.placeholder.com/15/FFBBC1/000000?text=+)
-![#fbccc7](https://via.placeholder.com/15/fbccc7/000000?text=+)
+![#ffcbc5](https://via.placeholder.com/15/ffcbc5/000000?text=+)
 ![#FFFFFF](https://via.placeholder.com/15/FFFFFF/000000?text=+)
