@@ -98,7 +98,7 @@ function flexBackgroundImage(flexBody) {
       {
         type: "image",
         url: theme.body.imageURL,
-        position: "absolute",x
+        position: "absolute",
         size: "full",
         align: "center",
         gravity: "center",
