@@ -100,13 +100,15 @@ async function gsrun(cl) {
       "16-28 Feb 21",
       "1-15 Mar 21",
     ];
-    console.log(xx.properties.title);
+    // console.log(xx.properties.title);
     if (
       !xx.properties.title.endsWith("19") &&
       !xx.properties.title.endsWith("20") &&
+      !xx.properties.title.endsWith("21") &&
       !xx.properties.hidden &&
       !badTitle.includes(xx.properties.title)
     ) {
+      console.log(xx.properties.title);
       let data = await gsapi.spreadsheets.values.get({
         spreadsheetId: "1GBVRpE7PFA-rDCZlnV0pyBZfdIbFRFVdLO8EwTMFPpw",
         range: xx.properties.title,
