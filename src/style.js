@@ -105,6 +105,8 @@ function flexBackgroundImage(flexBody) {
         aspectMode: "cover",
         offsetTop: "0px",
         offsetBottom: "0px",
+        offsetStart: "0px",
+        offsetEnd: "0px",
         aspectRatio: theme.body.imageRatio,
       },
       {
