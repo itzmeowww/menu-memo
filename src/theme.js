@@ -1,15 +1,15 @@
 const theme = {
   header: {
-    backgroundColor: "#d8776e",
-    color: "#FFFFFF",
+    backgroundColor: "#ffffff",
+    color: "#508b8b",
   },
   body: {
     backgroundColor: "#cfeded",
-    color: "#a0c9c9",
+    color: "#508b8b",
     separatorColor: "#a0c9c9",
     imageURL:
       "https://raw.githubusercontent.com/itzmeowww/menu-memo/master/img/background/spring.png",
-    imageRatio: "1020:1608",
+    imageRatio: "2857:5114",
   },
 };
 
