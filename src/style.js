@@ -103,7 +103,6 @@ function flexBackgroundImage(flexBody) {
         align: "end",
         gravity: "bottom",
         aspectMode: "cover",
-        offsetTop: "0px",
         offsetBottom: "0px",
         offsetStart: "0px",
         offsetEnd: "0px",
