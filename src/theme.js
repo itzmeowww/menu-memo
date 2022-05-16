@@ -1,14 +1,14 @@
 const theme = {
   header: {
-    backgroundColor: "#FF8896",
+    backgroundColor: "#d8776e",
     color: "#FFFFFF",
   },
   body: {
-    backgroundColor: "#ffcbc5",
-    color: "#FF8896",
-    separatorColor: "#FF8896",
+    backgroundColor: "#cfeded",
+    color: "#a0c9c9",
+    separatorColor: "#a0c9c9",
     imageURL:
-      "https://raw.githubusercontent.com/itzmeowww/menu-memo/master/img/background/valentine3.jpg",
+      "https://raw.githubusercontent.com/itzmeowww/menu-memo/master/img/background/spring.png",
     imageRatio: "1020:1608",
   },
 };
