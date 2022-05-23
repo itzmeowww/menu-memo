@@ -126,7 +126,9 @@ function replyMessage(msg, db) {
   } else if (isInStr(msg, cmd["kvisMart"])) {
     return {
       desc: "KVIS Mart",
-      reply: textMessage("THU: 12:00 - 12:20, 17:15 - 17:35\nFRI: 12:00-12:20"),
+      reply: textMessage(
+        "KVIS MART OPENING TIME:\n\nTHU: 12:00 - 12:20\nTHU: 17:15 - 17:35\nFRI: 12:00-12:20"
+      ),
     };
   }
 
