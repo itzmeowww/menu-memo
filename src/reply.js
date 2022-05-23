@@ -39,6 +39,7 @@ function replyMessage(msg, db) {
       "feedback",
     ],
     suggest: ["suggest", "เสนอ", "menu suggestion"],
+    kvisMart: ["mart", "ขนม", "ไอติม"],
   };
 
   let fullCmdList = [];
@@ -122,6 +123,11 @@ function replyMessage(msg, db) {
       now = now.add(1, "days");
       dateOpt = " (Tomorrow)";
     }
+  } else if (isInStr(msg, cmd["kvisMart"])) {
+    return {
+      desc: "KVIS Mart",
+      reply: textMessage("THU: 12:00 - 12:20, 17:15 - 17:35\nFRI: 12:00-12:20"),
+    };
   }
 
   if (isInStr(msg, cmd["tomorrow"])) {
