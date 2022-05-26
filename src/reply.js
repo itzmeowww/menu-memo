@@ -127,7 +127,7 @@ function replyMessage(msg, db) {
     return {
       desc: "KVIS Mart",
       reply: textMessage(
-        "KVIS MART OPENING TIME:\n\nLunch: 12.00-12.20: TUE,THU,FRI\nDinner: 17.15-17.35, 17.40-18.00: MON,TUE,WED,THU"
+        "KVIS MART OPENING TIME:\n\nLunch\n12.00-12.20\nTUE,THU,FRI\n\nDinner\n17.15-17.35, 17.40-18.00\nMON,TUE,WED,THU"
       ),
     };
   }
