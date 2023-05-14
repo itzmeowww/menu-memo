@@ -38,13 +38,16 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
 (async () => {
   let db: any = {};
 
-  try {
-    const credential: Credentials = await client.authorize();
-    db = await gsrun(client);
-    logger.info("DB listed successful");
-  } catch (err) {
-    logger.error(err);
-  }
+  setInterval(async () => {
+    try {
+      const credential: Credentials = await client.authorize();
+      setInterval;
+      db = await gsrun(client);
+      logger.info("DB listed successful");
+    } catch (err) {
+      logger.error(err);
+    }
+  }, 1000 * 60 * 60 * 48);
 
   const messageRouter = new router.MessageRouter(
     {
