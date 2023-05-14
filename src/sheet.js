@@ -105,6 +105,7 @@ async function gsrun(cl) {
       !xx.properties.title.endsWith("19") &&
       !xx.properties.title.endsWith("20") &&
       !xx.properties.title.endsWith("21") &&
+      !xx.properties.title.endsWith("22") &&
       !xx.properties.hidden &&
       !badTitle.includes(xx.properties.title)
     ) {
