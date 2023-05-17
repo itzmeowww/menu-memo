@@ -39,25 +39,15 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
   let db: any = {};
   try {
     const credential: Credentials = await client.authorize();
-    setInterval;
+
     db = await gsrun(client);
+    console.log(db);
     logger.info("DB listed successful");
   } catch (err) {
     logger.error(err);
   }
-  setInterval(async () => {
-    try {
-      const credential: Credentials = await client.authorize();
-      setInterval;
-      db = await gsrun(client);
 
-      logger.info("DB listed successful");
-    } catch (err) {
-      logger.error(err);
-    }
-  }, 1000 * 60 * 60 * 48);
-
-  const messageRouter = new router.MessageRouter(
+  let messageRouter = new router.MessageRouter(
     {
       week: new router.LegacyWeekOverview(db),
     },
@@ -66,6 +56,28 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
     },
     new router.LegacyPassthru(db)
   );
+
+  setInterval(async () => {
+    let db: any = {};
+    try {
+      const credential: Credentials = await client.authorize();
+
+      db = await gsrun(client);
+      console.log(db);
+      logger.info("DB listed successful");
+    } catch (err) {
+      logger.error(err);
+    }
+    messageRouter = new router.MessageRouter(
+      {
+        week: new router.LegacyWeekOverview(db),
+      },
+      {
+        week: ["week", "wk", "summary", "sum", "overview"],
+      },
+      new router.LegacyPassthru(db)
+    );
+  }, 1000 * 60 * 60 * 24);
 
   const handleEvent = async (event: line.WebhookEvent) => {
     if (event.type !== "message" || event.message.type !== "text") {
