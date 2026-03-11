@@ -1,9 +1,9 @@
 import * as router from "./router";
 import { Credentials } from "google-auth-library";
 import * as winston from "winston";
-import * as express from "express";
+import express from "express";
 import { exit } from "process";
-import * as line from "@line/bot-sdk";
+import { messagingApi, middleware, MiddlewareConfig, WebhookEvent } from "@line/bot-sdk";
 
 const logger = winston.createLogger({
   level: "info",
@@ -29,11 +29,12 @@ if (!process.env.access_token || !process.env.secret) {
   exit(1);
 }
 
-const lineConfig: line.Config = {
-  channelAccessToken: process.env.access_token,
+const lineMiddlewareConfig: MiddlewareConfig = {
   channelSecret: process.env.secret,
 };
-const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
+const lineClient = new messagingApi.MessagingApiClient({
+  channelAccessToken: process.env.access_token,
+});
 
 (async () => {
   let db: any = {};
@@ -79,7 +80,7 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
     );
   }, 1000 * 60 * 60 * 24);
 
-  const handleEvent = async (event: line.WebhookEvent) => {
+  const handleEvent = async (event: WebhookEvent) => {
     if (event.type !== "message" || event.message.type !== "text") {
       return null;
     }
@@ -93,7 +94,10 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
       logger.info(`[${new Date().toISOString()}] "Someone" said ${msg}`);
     }
 
-    return lineClient.replyMessage(event.replyToken, theReply);
+    return lineClient.replyMessage({
+      replyToken: event.replyToken,
+      messages: [theReply],
+    });
   };
 
   app.get("/", (req: express.Request, res: express.Response) => {
@@ -102,7 +106,7 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
 
   app.post(
     "/webhook",
-    line.middleware(<line.MiddlewareConfig>lineConfig),
+    middleware(lineMiddlewareConfig),
     (req: express.Request, res: express.Response) => {
       Promise.all(req.body.events.map(handleEvent))
         .then((result) => res.json(result))

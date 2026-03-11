@@ -1,7 +1,9 @@
 const { google } = require("googleapis");
 require("dotenv").config();
 
-const moment = require("moment");
+const dayjs = require("dayjs");
+const customParseFormat = require("dayjs/plugin/customParseFormat");
+dayjs.extend(customParseFormat);
 
 const keys = {
   type: "service_account",
@@ -43,7 +45,7 @@ async function gsrun(cl) {
       });
       data.data.values.forEach((x) => {
         if (x.length != 0 && x[0] != "" && x[0] != date) {
-          date = moment(x[0], "DD/MM/YYYY").format("MM/DD/YYYY");
+          date = dayjs(x[0], "DD/MM/YYYY").format("MM/DD/YYYY");
           console.log(date);
         }
         if (date != "" && date != "Invalid date") {

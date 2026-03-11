@@ -1,10 +1,14 @@
-const moment = require("moment");
+const dayjs = require("dayjs");
+const utc = require("dayjs/plugin/utc");
+const customParseFormat = require("dayjs/plugin/customParseFormat");
+dayjs.extend(utc);
+dayjs.extend(customParseFormat);
 const { flexMessage, textMessage, flexHelp } = require("./style");
 const { randList, isInStr } = require("./utils");
 
 function replyMessage(msg, db) {
   let ret = {};
-  let now = moment().add(7, "hours");
+  let now = dayjs().utcOffset(7);
 
   let hours = now.hour();
   let dateOpt = "";
@@ -148,7 +152,7 @@ function replyMessage(msg, db) {
 
   if (msg in db) {
     date = msg;
-    now = moment(date, "M/D/YYYY");
+    now = dayjs(date, "M/D/YYYY");
     date2 = now.format("D MMM");
     msg = "menu";
   } else {

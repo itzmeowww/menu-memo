@@ -8,7 +8,12 @@
     "allowJs": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "skipLibCheck": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@line/bot-sdk": ["./node_modules/@line/bot-sdk/dist/cjs/index"]
+    }
   },
   "include": [
     "src/**/*"

@@ -4,9 +4,14 @@
 
 // import { flexMessage, textMessage } from "./style.js";
 import { theme } from "./theme.js";
-import * as moment from "moment";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 import "./arrayRandom";
-import { FlexBubble, FlexComponent, FlexMessage, Message } from "@line/bot-sdk";
+import { messagingApi } from "@line/bot-sdk";
+import FlexBubble = messagingApi.FlexBubble;
+import FlexComponent = messagingApi.FlexComponent;
+import Message = messagingApi.Message;
 import * as oldReplyHandler from "./reply";
 
 // Used to split by first whitespace
@@ -142,12 +147,12 @@ export class LegacyWeekOverview implements IMessageHandler {
   }
 
   reply(parameters: string): Message {
-    const now = moment().utcOffset(7);
+    const now = dayjs().utcOffset(7);
     let date = now;
 
     if (now.hour() >= 19) {
       // Start the next day if the last meal is done
-      date.add(1, "d");
+      date = date.add(1, "d");
     }
 
     // Each element of carousel is put here
@@ -245,7 +250,7 @@ export class LegacyWeekOverview implements IMessageHandler {
       }
 
       // iterate date
-      date.add(1, "d");
+      date = date.add(1, "d");
     }
 
     if (menu.length === 0) {

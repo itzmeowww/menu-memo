@@ -1,9 +1,11 @@
 const { flexMessage, textMessage } = require("./style");
 const { query } = require("./sheet");
-const moment = require("moment");
+const dayjs = require("dayjs");
+const utc = require("dayjs/plugin/utc");
+dayjs.extend(utc);
 
-const getDate = () => moment().utcOffset(7);
-const getTime = () => moment().utcOffset(7).hour();
+const getDate = () => dayjs().utcOffset(7);
+const getTime = () => dayjs().utcOffset(7).hour();
 
 const timeToEat = {
   breakfast: 8,
