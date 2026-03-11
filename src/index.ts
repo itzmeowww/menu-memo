@@ -39,7 +39,6 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
   let db: any = {};
   try {
     const credential: Credentials = await client.authorize();
-
     db = await gsrun(client);
     // console.log(db);
     logger.info("DB listed successful");
@@ -57,11 +56,10 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
     new router.LegacyPassthru(db)
   );
 
-  setInterval(async () => {
+  const runDb = async () => {
     let db: any = {};
     try {
       const credential: Credentials = await client.authorize();
-
       db = await gsrun(client);
       // console.log(db);
       logger.info("DB listed successful");
@@ -77,7 +75,9 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
       },
       new router.LegacyPassthru(db)
     );
-  }, 1000 * 60 * 60 * 24);
+  }
+
+  setInterval(runDb, 1000 * 60 * 60 * 24);
 
   const handleEvent = async (event: line.WebhookEvent) => {
     if (event.type !== "message" || event.message.type !== "text") {
@@ -86,6 +86,34 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
     const msg = event.message.text;
     const userId = event.source.userId;
     const theReply = messageRouter.reply(msg);
+
+    if(msg == "reset1234"){
+      let db: any = {};
+      let message : string = "Wow"
+      try {
+        const credential: Credentials = await client.authorize();
+        db = await gsrun(client);
+        console.log(db);
+        logger.info("DB listed successful");
+        message = "You have successfully Reset The Menu :)"
+      } catch (err) {
+        message = "Some Error Occured :("
+        logger.error(err);
+      }
+      messageRouter = new router.MessageRouter(
+        {
+          week: new router.LegacyWeekOverview(db),
+        },
+        {
+          week: ["week", "wk", "summary", "sum", "overview"],
+        },
+        new router.LegacyPassthru(db)
+      );
+      return lineClient.replyMessage(event.replyToken, {
+        type: "text",
+        text: message
+      });
+    }
 
     if (userId) {
       const profile = await lineClient.getProfile(userId);
