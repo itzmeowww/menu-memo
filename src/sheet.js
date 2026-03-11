@@ -16,9 +16,11 @@ const keys = {
     "https://www.googleapis.com/robot/v1/metadata/x509/food-fetch%40food-fetcher-282419.iam.gserviceaccount.com",
 };
 
-const client = new google.auth.JWT(keys.client_email, null, keys.private_key, [
-  "https://www.googleapis.com/auth/spreadsheets.readonly",
-]);
+const client = new google.auth.JWT({
+  email: keys.client_email,
+  key: keys.private_key,
+  scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
+});
 
 async function gsrun(cl) {
   console.log("Now in GSrun");

@@ -41,7 +41,7 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
     const credential: Credentials = await client.authorize();
 
     db = await gsrun(client);
-    console.log(db);
+    // console.log(db);
     logger.info("DB listed successful");
   } catch (err) {
     logger.error(err);
@@ -63,7 +63,7 @@ const lineClient: line.Client = new line.Client(<line.ClientConfig>lineConfig);
       const credential: Credentials = await client.authorize();
 
       db = await gsrun(client);
-      console.log(db);
+      // console.log(db);
       logger.info("DB listed successful");
     } catch (err) {
       logger.error(err);

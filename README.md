@@ -1,11 +1,12 @@
 # Menu Memo LINE API
 
-## Getting Start
+## Getting Started
 
+For production, you can use the following commands:
 ```
-yarn
-yarn build
-yarn start
+pnpm install
+pnpm run build
+pnpm run start
 ```
 
 ## Brief Concept in Thai
