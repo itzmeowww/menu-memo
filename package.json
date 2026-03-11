@@ -1,5 +1,5 @@
 {
-  "name": "foodfetcherbot",
+  "name": "menu-memo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/itzmeowww/foodfetcherbot.git"
+    "url": "git+https://github.com/itzmeowww/menu-memo.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/itzmeowww/foodfetcherbot/issues"
+    "url": "https://github.com/itzmeowww/menu-memo/issues"
   },
-  "homepage": "https://github.com/itzmeowww/foodfetcherbot#readme",
+  "homepage": "https://github.com/itzmeowww/menu-memo#readme",
   "dependencies": {
     "@line/bot-sdk": "^7.0.0",
     "body-parser": "^1.19.0",
